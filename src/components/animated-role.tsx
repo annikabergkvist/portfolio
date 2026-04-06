@@ -165,10 +165,7 @@ export function AnimatedRole({ className }: AnimatedRoleProps) {
           </span>
           <div
             ref={curtainRef}
-            className={cn(
-              "animated-role__curtain absolute top-0 left-0 z-[1] h-full w-[110%] bg-primary",
-              CURTAIN_INSTANT,
-            )}
+            className={cn("animated-role__curtain absolute", CURTAIN_INSTANT)}
             aria-hidden
           />
         </span>

@@ -3,4 +3,4 @@
  * similar to a portfolio hero/project band with generous side space on large screens.
  */
 export const MAIN_CONTENT_CLASS =
-  "mx-auto w-full max-w-[1200px] px-5 sm:px-8 lg:px-14 xl:px-16 2xl:px-20";
+  "mx-auto w-full max-w-[1200px] px-6 sm:px-8 md:px-10 lg:px-12 xl:px-14 2xl:px-20";

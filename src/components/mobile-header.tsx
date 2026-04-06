@@ -80,7 +80,7 @@ export function MobileHeader() {
       <header
         data-mobile-header
         className={cn(
-          "fixed left-0 right-0 top-0 flex h-16 items-center justify-between px-4 lg:hidden",
+          "fixed left-0 right-0 top-0 flex h-16 items-center justify-between px-4 xl:hidden",
           open
             ? "z-[70] border-b-0 bg-transparent"
             : "z-50 border-b border-border/60 bg-background/90 backdrop-blur-md",
@@ -118,13 +118,13 @@ export function MobileHeader() {
           <button
             type="button"
             tabIndex={-1}
-            className="mobile-menu-overlay fixed inset-0 z-[60] cursor-default backdrop-blur-md lg:hidden"
+            className="mobile-menu-overlay fixed inset-0 z-[60] cursor-default backdrop-blur-md xl:hidden"
             aria-label="Close menu"
             onClick={() => setOpen(false)}
           />
           <nav
             id="mobile-menu"
-            className="fixed inset-0 z-[61] flex h-dvh flex-col pointer-events-none lg:hidden"
+            className="fixed inset-0 z-[61] flex h-dvh flex-col pointer-events-none xl:hidden"
             aria-label="Mobile navigation"
           >
             <div className="shrink-0 pt-16" aria-hidden />

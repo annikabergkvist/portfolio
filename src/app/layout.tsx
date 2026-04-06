@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Sans } from "next/font/google";
 import { MobileHeader } from "@/components/mobile-header";
-import { Sidebar, SIDEBAR_INSET_CLASS } from "@/components/sidebar";
+import { Sidebar, SIDEBAR_WIDTH_CLASS } from "@/components/sidebar";
 import { cn } from "@/lib/utils";
 import "./globals.css";
 
@@ -41,19 +41,21 @@ export default function RootLayout({
       )}
     >
       {/*
-        Mobile: MobileHeader + pt-16. From lg: fixed sidebar; SIDEBAR_INSET_CLASS indents main
-        so content does not sit under the rail. overflow-x-hidden + overflow-y-auto on the scroller.
+        Below xl: mobile header + pt-16. From xl: in-flow w-24 spacer + fixed sidebar; body scrolls.
       */}
-      <body className="min-h-dvh overflow-x-hidden">
+      <body className="min-h-dvh overflow-x-hidden overflow-y-auto">
         <MobileHeader />
         <Sidebar />
         <div
           className={cn(
-            "min-h-dvh min-w-0 overflow-x-hidden overflow-y-auto pt-16 lg:pt-0",
-            SIDEBAR_INSET_CLASS,
+            "flex min-h-dvh min-w-0 flex-col pt-16 xl:flex-row xl:pt-0",
           )}
         >
-          {children}
+          <div
+            className={cn("hidden shrink-0 xl:block", SIDEBAR_WIDTH_CLASS)}
+            aria-hidden
+          />
+          <div className="min-w-0 flex-1">{children}</div>
         </div>
       </body>
     </html>

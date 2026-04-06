@@ -54,6 +54,8 @@
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
+    /* AnimatedRole sweep: follows --primary (dusty rose in .dark) */
+    --hero-role-curtain: var(--primary);
   }
 
   .dark {
@@ -68,7 +70,7 @@
     --secondary: #1a1214;
     --secondary-foreground: #c4a8a8;
     --muted: #1a1214;
-    --muted-foreground: #8a6e6e;
+    --muted-foreground: #806067;
     --accent: #231820;
     --accent-foreground: #c4a8a8;
     --destructive: #7f1d1d;
@@ -89,6 +91,8 @@
     --sidebar-accent-foreground: #c4a8a8;
     --sidebar-border: rgba(245, 235, 233, 0.08);
     --sidebar-ring: #b76e79;
+    /* AnimatedRole sweep: same rosey pink as --primary (#b76e79), CTAs, etc. */
+    --hero-role-curtain: var(--muted-foreground);
   }
 }
 
@@ -174,6 +178,14 @@
    ----------------------------------------------------------------------------- */
 @layer components {
   .animated-role__curtain {
+    top: 0;
+    left: 0;
+    z-index: 1;
+    height: 100%;
+    width: 110%;
+    background-color: var(--hero-role-curtain, var(--primary));
+    box-shadow: 0 0 1.15rem
+      color-mix(in srgb, var(--hero-role-curtain, var(--primary)) 36%, transparent);
     transform: translateX(-110%);
     transition: transform 1.3s cubic-bezier(0.65, 0, 0.35, 1);
   }
@@ -225,6 +237,12 @@
 
   .mobile-menu-overlay {
     background-color: color-mix(in oklab, var(--background) 82%, transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-bg-video {
+      display: none;
+    }
   }
 }
 
