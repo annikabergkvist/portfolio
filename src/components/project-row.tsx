@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { MAIN_CONTENT_CLASS } from "@/lib/main-content";
+import { SITE_MAILTO } from "@/lib/site-nav";
 import { cn } from "@/lib/utils";
 
 export type Project = {
@@ -18,6 +19,8 @@ export function ProjectRow({
   description,
   role,
 }: Project) {
+  const projectMailto = `${SITE_MAILTO}?subject=${encodeURIComponent(`Project inquiry: ${title}`)}`;
+
   return (
     <div className={cn(MAIN_CONTENT_CLASS, gridClass)}>
       <div className="flex flex-col gap-6">
@@ -31,8 +34,10 @@ export function ProjectRow({
           {description}
         </p>
         <p className="text-sm text-muted-foreground">{role}</p>
-        <Button type="button" variant="default" size="pill">
-          View project <span aria-hidden>→</span>
+        <Button variant="default" size="pill" asChild>
+          <a href={projectMailto}>
+            View project <span aria-hidden>→</span>
+          </a>
         </Button>
       </div>
       <div className="flex aspect-video items-center justify-center rounded-lg bg-card">
