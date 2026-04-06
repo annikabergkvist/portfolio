@@ -32,6 +32,9 @@ const buttonVariants = cva(
         "icon-sm":
           "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg",
         "icon-lg": "size-9",
+        /** Portfolio CTAs: pill shape, comfortable padding */
+        pill:
+          "h-auto min-h-10 w-fit gap-2 rounded-md px-6 py-3 text-sm font-medium",
       },
     },
     defaultVariants: {

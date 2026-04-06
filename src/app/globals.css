@@ -1,9 +1,28 @@
+/* =============================================================================
+   GLOBAL STILAR (Tailwind v4 + shadcn)
+   Den här filen laddas en gång för hela sajten via layout.tsx.
+   Ordningen spelar roll: först importer, sedan variabler, sedan tema → utilities.
+   ============================================================================= */
+
+/* Tailwind:s motor (reset, utilities, m.m.) */
 @import "tailwindcss";
+
+/* Färdiga animationer som fungerar med Tailwind v4 (ersätter tailwindcss-animate) */
 @import "tw-animate-css";
+
+/* shadcn: egna varianter (t.ex. data-open) och små utilities från UI-paketet */
 @import "shadcn/tailwind.css";
 
+/* Gör att klasser med prefixet "dark:" bara gäller inuti ett element med klassen .dark
+   (t.ex. <html class="dark">). Utan detta skulle "dark:"-utilities inte matcha. */
 @custom-variant dark (&:is(.dark *));
 
+/* -----------------------------------------------------------------------------
+   SEMANTISKA FÄRGER (CSS-variabler)
+   :root = "ljusläge" enligt shadcn/neutral (används om du tar bort .dark från <html>).
+   .dark  = ditt mörka portfoliotema; värdet ärvs av alla barn tills du åsidosätter.
+   Komponenter använder sällan #hex direkt — de läser var(--background) osv.
+   ----------------------------------------------------------------------------- */
 @layer base {
   :root {
     --background: oklch(1 0 0);
@@ -77,11 +96,18 @@
   }
 }
 
+/* -----------------------------------------------------------------------------
+   TAILWIND @theme inline — brygga till utility-klasser
+   Här säger vi åt Tailwind: "när någon skriver bg-background, använd var(--background)".
+   Utan denna koppling finns variablerna i CSS men klasser som bg-primary fungerar inte.
+   --radius-* används av shadcn-komponenter (t.ex. knappar med var(--radius-md)).
+   ----------------------------------------------------------------------------- */
 @theme inline {
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
+  /* DM Sans: next/font sätter --font-sans på <html>; denna rad lägger till system-fallbacks för font-sans-utilities (var() läser föregående cascade). */
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo,
-    Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -120,24 +146,35 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
+/* -----------------------------------------------------------------------------
+   GLOBAL BASSTIL (gäller hela dokumentet)
+   @layer base samlar Tailwind:s "foundation" — din kod läggs ihop med Tailwinds reset.
+   ----------------------------------------------------------------------------- */
 @layer base {
+  /* Standardramfärg + diskret fokus-outline på alla element */
   * {
     @apply border-border outline-ring/50;
   }
 
+  /* Mjuka scroll-hopp när du länkar till #ankare (t.ex. sidebar → #work) */
   html {
     scroll-behavior: smooth;
   }
 
+  /* Typsnitt: --font-sans kommer från next/font på <html> (DM Sans); fallback-stack om variabel saknas */
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif,
+      "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     line-height: 1.6;
   }
 
+  /* Markerad text följer primary-färgerna */
   ::selection {
     @apply bg-primary text-primary-foreground;
   }
 
+  /* Synlig fokusring för tangentbordsnavigering (tillgänglighet) */
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-ring;
   }
