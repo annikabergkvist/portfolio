@@ -2,46 +2,52 @@ import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { SocialGlyph } from "@/components/social-glyphs";
+import { SIDEBAR_NAV_TOP_CLASS } from "@/lib/hero-layout";
 import { SITE_NAV_ITEMS, SITE_SOCIAL_LINKS } from "@/lib/site-nav";
 import { cn } from "@/lib/utils";
 
 /**
- * Fixed sidebar width. SIDEBAR_INSET_CLASS must match so main content is not covered.
- * Mobile: no inset (hamburger nav). From lg: inset matches this rail.
+ * Fixed sidebar width. Layout uses an in-flow spacer with the same width on xl so content
+ * aligns with this rail without padding on the scroll container (full-bleed hero under the rail).
+ * Shown from `xl` (1280px) so large tablets / iPad Pro use the hamburger layout instead.
  */
 export const SIDEBAR_WIDTH_CLASS = "w-24";
-export const SIDEBAR_INSET_CLASS = "pl-0 lg:pl-24";
 
 /** Horizontal padding on the aside only (~28px left, 12px right) to avoid double padding on nav/social. */
 const SIDEBAR_INNER_X = "pl-20 pr-3";
 
 const navLinkClassName = cn(
-  "h-auto rounded-md px-2 py-1 text-base font-medium tracking-wide",
-  "text-sidebar-accent-foreground",
-  "hover:bg-sidebar-accent hover:text-muted-foreground",
+  "h-auto rounded-md border-transparent px-2 py-1 text-base font-medium tracking-wide shadow-none",
+  "!bg-transparent text-sidebar-accent-foreground",
+  "hover:!bg-white/15 hover:!text-foreground",
+  "active:!bg-transparent aria-expanded:!bg-transparent",
   "focus-visible:border-sidebar-ring focus-visible:ring-sidebar-ring/50",
 );
 
 const socialButtonClassName = cn(
-  "text-sidebar-accent-foreground hover:text-muted-foreground",
-  "hover:bg-sidebar-accent",
+  "border-transparent shadow-none !bg-transparent text-sidebar-accent-foreground",
+  "hover:!bg-white/15 hover:!text-foreground",
+  "active:!bg-transparent aria-expanded:!bg-transparent",
   "focus-visible:border-sidebar-ring focus-visible:ring-sidebar-ring/50",
 );
 
-/** Fixed left rail: hidden below lg, column fills the viewport from lg. */
+/** Fixed left rail: hidden below `xl` (1280px); column fills the viewport from `xl`. */
 export function Sidebar() {
   return (
     <aside
       className={cn(
-        "fixed left-0 top-0 z-40 box-border hidden h-dvh flex-col bg-background lg:flex",
+        "fixed left-0 top-0 z-40 box-border hidden h-dvh flex-col bg-transparent xl:flex",
         SIDEBAR_INNER_X,
         SIDEBAR_WIDTH_CLASS,
       )}
       aria-label="Site"
     >
-      <div className="flex min-h-0 flex-1 flex-col">
+      <div className="flex min-h-0 flex-1 flex-col bg-transparent">
         <nav
-          className="flex shrink-0 flex-col items-center justify-start gap-14 pt-[5.25rem]"
+          className={cn(
+            "flex shrink-0 flex-col items-center justify-start gap-14",
+            SIDEBAR_NAV_TOP_CLASS,
+          )}
           aria-label="Main navigation"
         >
           {SITE_NAV_ITEMS.map(({ href, label }) => (
