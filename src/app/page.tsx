@@ -1,6 +1,9 @@
+import { AnimatedRole } from "@/components/animated-role";
+import { ScrollChevron } from "@/components/scroll-chevron";
 import { Button } from "@/components/ui/button";
 import { ProjectRow, type Project } from "@/components/project-row";
 import { MAIN_CONTENT_CLASS } from "@/lib/main-content";
+import { SITE_MAILTO } from "@/lib/site-nav";
 import { cn } from "@/lib/utils";
 
 const projects: Project[] = [
@@ -36,32 +39,40 @@ const projects: Project[] = [
 
 export default function Home() {
   return (
-    <main className="flex flex-col">
-      {/* Hero — one h1 per page */}
-      <section className="flex min-h-[85dvh] items-center justify-center lg:justify-start">
+    <main className="flex min-w-0 flex-col overflow-x-hidden">
+      {/* Hero: mobile top-aligned; @container inner column sizes fluid type to content width (cqw) */}
+      <section className="relative flex min-h-[90dvh] w-full items-start justify-center pb-12 max-md:pt-[clamp(6.5rem,min(34dvh,14rem),14rem)] md:items-center md:pb-16 md:pt-28">
         <div
           className={cn(
             MAIN_CONTENT_CLASS,
-            "flex w-full justify-center lg:justify-start",
+            "flex w-full justify-start md:pl-2 lg:pl-6 xl:pl-10",
           )}
         >
-          <div className="flex max-w-3xl flex-col gap-6 text-center lg:text-left">
-            <p className="text-sm font-medium uppercase tracking-widest text-sidebar-accent-foreground">
-              Annika Bergkvist
-            </p>
-            <div className="flex flex-col gap-1">
-              <h1 className="text-4xl font-black tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
-                Design Engineer
-              </h1>
-              <p className="text-3xl font-bold leading-[1.08] tracking-tight text-foreground sm:text-4xl md:text-5xl lg:text-6xl">
-                + UX/UI Design
+          <div className="@container min-w-0 w-full">
+            <div className="flex w-full min-w-0 max-w-full flex-col items-start text-left max-md:gap-7 md:gap-16">
+              <p className="font-bold uppercase leading-none text-muted-foreground antialiased max-md:[font-size:clamp(0.8125rem,calc((100cqw-0.75rem)/20),1.125rem)] max-md:tracking-[0.34em] max-md:[word-spacing:0.52em] md:text-[21px] md:tracking-[0.32em] md:[word-spacing:0.6em] lg:text-[22px] lg:tracking-[0.34em] lg:[word-spacing:0.7em]">
+                Annika Bergkvist
               </p>
+              <div className="flex w-full min-w-0 flex-col items-stretch gap-4 md:items-start md:gap-5">
+                <h1 className="max-w-full min-w-0 font-semibold leading-[0.92] tracking-[-0.02em] text-foreground max-md:whitespace-nowrap max-md:[font-size:clamp(1.55rem,calc((100cqw-0.75rem)/8.25),3.15rem)] md:w-max md:max-w-full md:text-balance md:font-bold md:leading-[0.88] md:[font-size:clamp(2.85rem,11.5vw+1.6rem,7.5rem)]">
+                  Design Engineer
+                </h1>
+                <div
+                  className={cn(
+                    "w-full min-w-0 max-w-full pt-0.5 leading-[1.06] md:w-max",
+                    "[font-size:clamp(1.55rem,min(5.8vw+0.45rem,3.35rem),3.35rem)] md:[font-size:clamp(1.45rem,5.4vw+0.55rem,5rem)]",
+                  )}
+                >
+                  <AnimatedRole />
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        <ScrollChevron />
       </section>
 
-      {/* Work — h2 for section; each project title is h3 inside ProjectRow */}
+      {/* Work: section h2; project titles are h3 inside ProjectRow */}
       <section id="work" className="flex flex-col">
         <h2 className="sr-only">Selected work</h2>
         {projects.map((project) => (
@@ -86,8 +97,10 @@ export default function Home() {
               and frontend development — turning ideas into polished,
               production-ready interfaces.
             </p>
-            <Button type="button" variant="default" size="pill">
-              Get in touch <span aria-hidden>→</span>
+            <Button variant="default" size="pill" asChild>
+              <a href={SITE_MAILTO}>
+                Get in touch <span aria-hidden>→</span>
+              </a>
             </Button>
           </div>
           <div className="flex aspect-square items-center justify-center rounded-lg bg-card">

@@ -1,27 +1,23 @@
 /* =============================================================================
-   GLOBAL STILAR (Tailwind v4 + shadcn)
-   Den här filen laddas en gång för hela sajten via layout.tsx.
-   Ordningen spelar roll: först importer, sedan variabler, sedan tema → utilities.
+   Global styles (Tailwind v4 + shadcn)
+   Loaded once for the app via layout.tsx. Order: imports → variables → theme → utilities.
    ============================================================================= */
 
-/* Tailwind:s motor (reset, utilities, m.m.) */
 @import "tailwindcss";
 
-/* Färdiga animationer som fungerar med Tailwind v4 (ersätter tailwindcss-animate) */
+/* Animations compatible with Tailwind v4 (replaces tailwindcss-animate) */
 @import "tw-animate-css";
 
-/* shadcn: egna varianter (t.ex. data-open) och små utilities från UI-paketet */
+/* shadcn: variants (e.g. data-open) and small utilities from the UI package */
 @import "shadcn/tailwind.css";
 
-/* Gör att klasser med prefixet "dark:" bara gäller inuti ett element med klassen .dark
-   (t.ex. <html class="dark">). Utan detta skulle "dark:"-utilities inte matcha. */
+/* dark:* only applies inside an element with .dark (e.g. <html class="dark">) */
 @custom-variant dark (&:is(.dark *));
 
 /* -----------------------------------------------------------------------------
-   SEMANTISKA FÄRGER (CSS-variabler)
-   :root = "ljusläge" enligt shadcn/neutral (används om du tar bort .dark från <html>).
-   .dark  = ditt mörka portfoliotema; värdet ärvs av alla barn tills du åsidosätter.
-   Komponenter använder sällan #hex direkt — de läser var(--background) osv.
+   Semantic colors (CSS variables)
+   :root = light theme (shadcn neutral) if you remove .dark from <html>.
+   .dark = portfolio dark theme; children inherit until overridden.
    ----------------------------------------------------------------------------- */
 @layer base {
   :root {
@@ -97,13 +93,11 @@
 }
 
 /* -----------------------------------------------------------------------------
-   TAILWIND @theme inline — brygga till utility-klasser
-   Här säger vi åt Tailwind: "när någon skriver bg-background, använd var(--background)".
-   Utan denna koppling finns variablerna i CSS men klasser som bg-primary fungerar inte.
-   --radius-* används av shadcn-komponenter (t.ex. knappar med var(--radius-md)).
+   @theme inline — map CSS variables to Tailwind utilities (bg-background, etc.)
+   --radius-* is used by shadcn components (e.g. buttons).
    ----------------------------------------------------------------------------- */
 @theme inline {
-  /* DM Sans: next/font sätter --font-sans på <html>; denna rad lägger till system-fallbacks för font-sans-utilities (var() läser föregående cascade). */
+  /* next/font sets --font-sans on <html>; stack fallbacks for font-sans utilities */
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
@@ -147,21 +141,18 @@
 }
 
 /* -----------------------------------------------------------------------------
-   GLOBAL BASSTIL (gäller hela dokumentet)
-   @layer base samlar Tailwind:s "foundation" — din kod läggs ihop med Tailwinds reset.
+   Global base — document-wide defaults (@layer base merges with Tailwind reset)
    ----------------------------------------------------------------------------- */
 @layer base {
-  /* Standardramfärg + diskret fokus-outline på alla element */
   * {
     @apply border-border outline-ring/50;
   }
 
-  /* Mjuka scroll-hopp när du länkar till #ankare (t.ex. sidebar → #work) */
+  /* Smooth scroll for in-page anchors (e.g. sidebar → #work) */
   html {
     scroll-behavior: smooth;
   }
 
-  /* Typsnitt: --font-sans kommer från next/font på <html> (DM Sans); fallback-stack om variabel saknas */
   body {
     @apply bg-background text-foreground antialiased;
     font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif,
@@ -169,13 +160,93 @@
     line-height: 1.6;
   }
 
-  /* Markerad text följer primary-färgerna */
   ::selection {
     @apply bg-primary text-primary-foreground;
   }
 
-  /* Synlig fokusring för tangentbordsnavigering (tillgänglighet) */
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-ring;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   AnimatedRole hero: curtain uses transform + transition (not animated left)
+   ----------------------------------------------------------------------------- */
+@layer components {
+  .animated-role__curtain {
+    transform: translateX(-110%);
+    transition: transform 1.3s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  .animated-role__curtain--instant {
+    transition: none;
+  }
+
+  .animated-role__curtain--cover {
+    transform: translateX(0);
+  }
+
+  .animated-role__curtain--gone {
+    transform: translateX(110%);
+  }
+
+  /* prefers-reduced-motion: hide curtain motion */
+  @media (prefers-reduced-motion: reduce) {
+    .animated-role {
+      height: auto !important;
+      min-height: 1.2em;
+      overflow: visible;
+    }
+
+    .animated-role__curtain {
+      display: none !important;
+    }
+
+    .animated-role__text {
+      position: relative !important;
+      transition: none !important;
+      white-space: normal;
+    }
+
+    /* + and word row: curtain off; show full text */
+    .animated-role__line {
+      opacity: 1 !important;
+    }
+
+    .animated-role__word-slot {
+      overflow: visible !important;
+      height: auto !important;
+    }
+
+    .animated-role__word {
+      white-space: normal !important;
+    }
+  }
+
+  .mobile-menu-overlay {
+    background-color: color-mix(in oklab, var(--background) 82%, transparent);
+  }
+}
+
+/* Mobile hero: bouncing chevron toward #work */
+@keyframes scroll-chevron-bounce {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(12px);
+  }
+}
+
+@layer utilities {
+  .animate-scroll-chevron-bounce {
+    animation: scroll-chevron-bounce 1.35s ease-in-out infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-scroll-chevron-bounce {
+    animation: none;
   }
 }
