@@ -19,14 +19,14 @@ const SIDEBAR_INNER_X = "pl-20 pr-3";
 const navLinkClassName = cn(
   "h-auto rounded-md border-transparent px-2 py-1 text-base font-medium tracking-wide shadow-none",
   "!bg-transparent text-sidebar-accent-foreground",
-  "hover:!bg-white/15 hover:!text-foreground",
+  "hover:!bg-transparent hover:!text-foreground",
   "active:!bg-transparent aria-expanded:!bg-transparent",
   "focus-visible:border-sidebar-ring focus-visible:ring-sidebar-ring/50",
 );
 
 const socialButtonClassName = cn(
   "border-transparent shadow-none !bg-transparent text-sidebar-accent-foreground",
-  "hover:!bg-white/15 hover:!text-foreground",
+  "hover:!bg-transparent hover:!text-foreground",
   "active:!bg-transparent aria-expanded:!bg-transparent",
   "focus-visible:border-sidebar-ring focus-visible:ring-sidebar-ring/50",
 );

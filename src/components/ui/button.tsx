@@ -10,6 +10,36 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: "bg-primary text-primary-foreground [a]:hover:bg-primary/80",
+        glow: [
+          // allow the halo to extend outside the pill (like the reference)
+          "relative isolate overflow-visible",
+          // no border / no outline edge — fill uses page background
+          "border-0 bg-transparent text-foreground/90",
+          "backdrop-blur-md",
+          "shadow-[0_10px_30px_rgba(0,0,0,0.55)]",
+          "will-change-transform transition-transform duration-200 ease-out",
+          "hover:text-foreground",
+          "hover:[text-shadow:0_0_14px_color-mix(in_oklab,var(--ring)_35%,transparent)]",
+          "hover:-translate-y-px",
+          // navy glow behind
+          "before:pointer-events-none before:absolute before:inset-[-18px] before:rounded-[calc(var(--radius-lg)+18px)]",
+          "before:-z-10",
+          "before:bg-[radial-gradient(60%_120%_at_50%_50%,color-mix(in_oklab,var(--ring)_92%,transparent),transparent_70%)]",
+          "before:opacity-100 before:blur-3xl",
+          // extra halo strength (outer glow) — no 1px edge
+          "shadow-[0_0_42px_color-mix(in_oklab,var(--ring)_55%,transparent)]",
+          "hover:shadow-[0_0_56px_color-mix(in_oklab,var(--ring)_62%,transparent)]",
+          // subtle glass shine on top edge (not a fill gradient)
+          "after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit] after:content-['']",
+          "after:ring-1 after:ring-inset after:ring-white/10",
+          "after:bg-[radial-gradient(120%_120%_at_50%_0%,rgba(255,255,255,0.10),transparent_60%)]",
+          "after:opacity-70",
+          "hover:after:ring-white/14",
+          "hover:bg-transparent",
+          "active:bg-transparent",
+          "focus-visible:border-transparent",
+          "focus-visible:ring-4 focus-visible:ring-ring/35",
+        ].join(" "),
         outline:
           "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
         secondary:
