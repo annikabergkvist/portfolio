@@ -54,45 +54,41 @@
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
-    /* AnimatedRole sweep: follows --primary (dusty rose in .dark) */
-    --hero-role-curtain: var(--primary);
   }
 
   .dark {
-    --background: #0e0a0b;
-    --foreground: #f5ebe9;
-    --card: #1a1214;
-    --card-foreground: #f5ebe9;
-    --popover: #231820;
-    --popover-foreground: #f5ebe9;
-    --primary: #b76e79;
-    --primary-foreground: #0e0a0b;
-    --secondary: #1a1214;
-    --secondary-foreground: #c4a8a8;
-    --muted: #1a1214;
-    --muted-foreground: #806067;
-    --accent: #231820;
-    --accent-foreground: #c4a8a8;
+    --background: #0a0a0f;
+    --foreground: #f0f0f5;
+    --card: #111118;
+    --card-foreground: #f0f0f5;
+    --popover: #1a1a24;
+    --popover-foreground: #f0f0f5;
+    --primary: #1e3a6e;
+    --primary-foreground: #f0f0f5;
+    --secondary: #111118;
+    --secondary-foreground: #a0a0b0;
+    --muted: #111118;
+    --muted-foreground: #606070;
+    --accent: #1a1a24;
+    --accent-foreground: #a0a0b0;
     --destructive: #7f1d1d;
-    --destructive-foreground: #f5ebe9;
-    --border: rgba(245, 235, 233, 0.08);
-    --input: rgba(245, 235, 233, 0.08);
-    --ring: #b76e79;
-    --chart-1: #b76e79;
-    --chart-2: #9d5a64;
-    --chart-3: #8a6e6e;
-    --chart-4: #5c4444;
-    --chart-5: #3d2a2a;
-    --sidebar: #1a1214;
-    --sidebar-foreground: #f5ebe9;
-    --sidebar-primary: #b76e79;
-    --sidebar-primary-foreground: #0e0a0b;
-    --sidebar-accent: #231820;
-    --sidebar-accent-foreground: #c4a8a8;
-    --sidebar-border: rgba(245, 235, 233, 0.08);
-    --sidebar-ring: #b76e79;
-    /* AnimatedRole sweep: same rosey pink as --primary (#b76e79), CTAs, etc. */
-    --hero-role-curtain: var(--muted-foreground);
+    --destructive-foreground: #f0f0f5;
+    --border: rgba(240, 240, 245, 0.08);
+    --input: rgba(240, 240, 245, 0.08);
+    --ring: #4a6fa8;
+    --chart-1: #4a6fa8;
+    --chart-2: #1e3a6e;
+    --chart-3: #606070;
+    --chart-4: #303040;
+    --chart-5: #1a1a24;
+    --sidebar: #111118;
+    --sidebar-foreground: #f0f0f5;
+    --sidebar-primary: #4a6fa8;
+    --sidebar-primary-foreground: #f0f0f5;
+    --sidebar-accent: #1a1a24;
+    --sidebar-accent-foreground: #a0a0b0;
+    --sidebar-border: rgba(240, 240, 245, 0.08);
+    --sidebar-ring: #4a6fa8;
   }
 }
 
@@ -173,68 +169,7 @@
   }
 }
 
-/* -----------------------------------------------------------------------------
-   AnimatedRole hero: curtain uses transform + transition (not animated left)
-   ----------------------------------------------------------------------------- */
 @layer components {
-  .animated-role__curtain {
-    top: 0;
-    left: 0;
-    z-index: 1;
-    height: 100%;
-    width: 110%;
-    background-color: var(--hero-role-curtain, var(--primary));
-    box-shadow: 0 0 1.15rem
-      color-mix(in srgb, var(--hero-role-curtain, var(--primary)) 36%, transparent);
-    transform: translateX(-110%);
-    transition: transform 1.3s cubic-bezier(0.65, 0, 0.35, 1);
-  }
-
-  .animated-role__curtain--instant {
-    transition: none;
-  }
-
-  .animated-role__curtain--cover {
-    transform: translateX(0);
-  }
-
-  .animated-role__curtain--gone {
-    transform: translateX(110%);
-  }
-
-  /* prefers-reduced-motion: hide curtain motion */
-  @media (prefers-reduced-motion: reduce) {
-    .animated-role {
-      height: auto !important;
-      min-height: 1.2em;
-      overflow: visible;
-    }
-
-    .animated-role__curtain {
-      display: none !important;
-    }
-
-    .animated-role__text {
-      position: relative !important;
-      transition: none !important;
-      white-space: normal;
-    }
-
-    /* + and word row: curtain off; show full text */
-    .animated-role__line {
-      opacity: 1 !important;
-    }
-
-    .animated-role__word-slot {
-      overflow: visible !important;
-      height: auto !important;
-    }
-
-    .animated-role__word {
-      white-space: normal !important;
-    }
-  }
-
   .mobile-menu-overlay {
     background-color: color-mix(in oklab, var(--background) 82%, transparent);
   }
@@ -266,5 +201,30 @@
 @media (prefers-reduced-motion: reduce) {
   .animate-scroll-chevron-bounce {
     animation: none;
+  }
+}
+
+/* Typewriter cursor (hero role line) */
+@keyframes typewriter-cursor-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@layer utilities {
+  .typewriter-cursor {
+    display: inline-block;
+    width: 0.14em;
+    height: 0.92em;
+    margin-left: 0.12em;
+    transform: translateY(0.06em);
+    background: var(--primary);
+    opacity: 1;
+    animation: typewriter-cursor-blink 1s steps(1, end) infinite;
   }
 }

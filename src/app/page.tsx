@@ -1,8 +1,9 @@
-import { AnimatedRole } from "@/components/animated-role";
+import { TypewriterRole } from "@/components/typewriter-role";
 import { HeroBackgroundVideo } from "@/components/hero-background-video";
 import { ScrollChevron } from "@/components/scroll-chevron";
 import { Button } from "@/components/ui/button";
 import { ProjectRow, type Project } from "@/components/project-row";
+import { ArrowRight } from "lucide-react";
 import {
   HERO_MAIN_BLOCK_LAYOUT_CLASS,
   HERO_SECTION_MIN_HEIGHT_CLASS,
@@ -17,29 +18,41 @@ const projects: Project[] = [
     index: "01",
     title: "Fintech Dashboard UI",
     description:
-      "A Wise-inspired dashboard redesigned and built from scratch. Custom design system with light and dark mode.",
-    role: "Role — Design Engineer",
+      "A Wise-inspired dashboard redesigned and built from scratch. The focus: translating a complex fintech UI into a clean, scalable component architecture—supported by a custom design system, light/dark mode, and clear data visualization.",
+    role: "Role: Design Engineer — design system, component architecture, frontend",
+    mockupSrc: "/images/mockup-fintech.png",
+    floatDurationMs: 6800,
+    floatDelayMs: 80,
   },
   {
     index: "02",
     title: "Leader Linné Småland",
     description:
-      "Complete redesign and development of a regional NGO homepage. UX research, design and frontend development.",
-    role: "Role — UX Designer & Frontend Developer",
+      "A regional NGO’s site wasn’t communicating their work and impact. I led a full redesign—from UX research and Figma prototypes to a complete frontend build—resulting in a clearer story and a more usable structure.",
+    role: "Role: UX/UI Designer & Frontend Developer",
+    mockupSrc: "/images/mockup-leader2.png",
+    floatDurationMs: 7600,
+    floatDelayMs: 260,
   },
   {
     index: "03",
     title: "Wexiödisk",
     description:
-      "Designed and tested an online savings calculator page, focusing on user interaction and usability.",
-    role: "Role — UX Designer",
+      "Users struggled to understand the savings potential of industrial dishwashers. I designed and tested an intuitive calculator experience that made complex inputs and outcomes easy to grasp and act on.",
+    role: "Role: UX/UI Designer",
+    mockupSrc: "/images/mockup-wexiodisk.png",
+    floatDurationMs: 7200,
+    floatDelayMs: 420,
   },
   {
     index: "04",
     title: "VDFF Website Redesign",
     description:
-      "Frontend development and testing for Växjö DFF, ensuring a responsive and high-performance website.",
-    role: "Role — Frontend Developer",
+      "Translated high-fidelity designs into a responsive, performant website for a Swedish football club—ensuring a consistent, pixel-precise experience across breakpoints and devices.",
+    role: "Role: Frontend Developer",
+    mockupSrc: "/images/mockup-vdff2.png",
+    floatDurationMs: 8000,
+    floatDelayMs: 140,
   },
 ];
 
@@ -85,7 +98,14 @@ export default function Home() {
                     "[font-size:clamp(1.55rem,min(5.8vw+0.45rem,3.35rem),3.35rem)] md:[font-size:clamp(1.45rem,5.4vw+0.55rem,5rem)]",
                   )}
                 >
-                  <AnimatedRole />
+                  <TypewriterRole
+                    roles={[
+                      "UX/UI Design",
+                      "Frontend Development",
+                      "AI & Vibe Coding",
+                      "Product Design",
+                    ]}
+                  />
                 </div>
               </div>
             </div>
@@ -97,8 +117,8 @@ export default function Home() {
       {/* Work: section h2; project titles are h3 inside ProjectRow */}
       <section id="work" className="flex flex-col">
         <h2 className="sr-only">Selected work</h2>
-        {projects.map((project) => (
-          <ProjectRow key={project.title} {...project} />
+        {projects.map((project, i) => (
+          <ProjectRow key={project.title} {...project} isFirst={i === 0} />
         ))}
       </section>
 
@@ -115,13 +135,36 @@ export default function Home() {
               About me
             </h2>
             <p className="text-base leading-relaxed text-muted-foreground">
-              Design Engineer based in Kristianstad, Sweden. Bridging product design
-              and frontend development — turning ideas into polished,
-              production-ready interfaces.
+              I’m a Design Engineer based in Kristianstad, Sweden, bridging product
+              design and frontend development.
             </p>
-            <Button variant="default" size="pill" asChild>
+            <p className="text-base leading-relaxed text-muted-foreground">
+              With 10+ years across communication, UX/UI, and frontend, I’ve
+              shifted into Design Engineering—building production-ready interfaces
+              with Next.js, React, Tailwind CSS, and shadcn/ui. I use AI-assisted
+              workflows (Cursor + Claude) to iterate fast while keeping quality
+              and consistency high.
+            </p>
+            <p className="text-base leading-relaxed text-muted-foreground">
+              What I bring to a team: strong design thinking, solid frontend
+              execution, and the ability to own a feature end‑to‑end—from concept
+              and prototypes to shipped code.
+            </p>
+            <Button
+              variant="glow"
+              size="pill"
+              className="text-primary-foreground hover:opacity-95"
+              asChild
+            >
               <a href={SITE_MAILTO}>
-                Get in touch <span aria-hidden>→</span>
+                <span className="inline-flex items-center gap-2">
+                  <span>Get in touch</span>
+                  <ArrowRight
+                    className="size-5"
+                    strokeWidth={2.5}
+                    aria-hidden
+                  />
+                </span>
               </a>
             </Button>
           </div>
