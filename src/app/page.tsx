@@ -1,9 +1,9 @@
 import { TypewriterRole } from "@/components/typewriter-role";
 import { HeroBackgroundVideo } from "@/components/hero-background-video";
 import { ScrollChevron } from "@/components/scroll-chevron";
-import { Button } from "@/components/ui/button";
 import { ProjectRow, type Project } from "@/components/project-row";
 import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   HERO_MAIN_BLOCK_LAYOUT_CLASS,
   HERO_SECTION_MIN_HEIGHT_CLASS,
@@ -19,7 +19,7 @@ const projects: Project[] = [
     title: "Fintech Dashboard UI",
     description:
       "A Wise-inspired dashboard redesigned and built from scratch. The focus: translating a complex fintech UI into a clean, scalable component architecture—supported by a custom design system, light/dark mode, and clear data visualization.",
-    role: "Role: Design Engineer — design system, component architecture, frontend",
+    role: "Role: Design Engineer — UX/UI design, design system, component architecture, frontend development",
     mockupSrc: "/images/mockup-fintech.png",
     floatDurationMs: 6800,
     floatDelayMs: 80,
@@ -29,7 +29,7 @@ const projects: Project[] = [
     title: "Leader Linné Småland",
     description:
       "A regional NGO’s site wasn’t communicating their work and impact. I led a full redesign—from UX research and Figma prototypes to a complete frontend build—resulting in a clearer story and a more usable structure.",
-    role: "Role: UX/UI Designer & Frontend Developer",
+    role: "Role: Design Engineer — UX research, Figma prototyping, frontend development",
     mockupSrc: "/images/mockup-leader2.png",
     floatDurationMs: 7600,
     floatDelayMs: 260,
@@ -39,7 +39,7 @@ const projects: Project[] = [
     title: "Wexiödisk",
     description:
       "Users struggled to understand the savings potential of industrial dishwashers. I designed and tested an intuitive calculator experience that made complex inputs and outcomes easy to grasp and act on.",
-    role: "Role: UX/UI Designer",
+    role: "Role: UI/UX Designer — interaction design, prototyping, usability testing",
     mockupSrc: "/images/mockup-wexiodisk.png",
     floatDurationMs: 7200,
     floatDelayMs: 420,
@@ -49,7 +49,7 @@ const projects: Project[] = [
     title: "VDFF Website Redesign",
     description:
       "Translated high-fidelity designs into a responsive, performant website for a Swedish football club—ensuring a consistent, pixel-precise experience across breakpoints and devices.",
-    role: "Role: Frontend Developer",
+    role: "Role: Frontend Developer — responsive implementation, performance, accessibility",
     mockupSrc: "/images/mockup-vdff2.png",
     floatDurationMs: 8000,
     floatDelayMs: 140,
@@ -100,11 +100,11 @@ export default function Home() {
                 >
                   <TypewriterRole
                     roles={[
+                      "AI-Assisted Workflow",
+                      "Product Design",
                       "UX/UI Design",
                       "Frontend Development",
-                      "AI & Vibe Coding",
-                      "Product Design",
-                    ]}
+                     ]}
                   />
                 </div>
               </div>
@@ -134,43 +134,38 @@ export default function Home() {
             <h2 className="text-3xl font-black leading-tight text-foreground sm:text-4xl">
               About me
             </h2>
-            <p className="text-base leading-relaxed text-muted-foreground">
+            <p className="text-[17px] font-medium leading-relaxed text-muted-foreground">
               I’m a Design Engineer based in Kristianstad, Sweden, bridging product
               design and frontend development.
             </p>
-            <p className="text-base leading-relaxed text-muted-foreground">
+            <p className="text-[17px] font-medium leading-relaxed text-muted-foreground">
               With 10+ years across communication, UX/UI, and frontend, I’ve
-              shifted into Design Engineering—building production-ready interfaces
+              shifted into Design Engineering, building production-ready interfaces
               with Next.js, React, Tailwind CSS, and shadcn/ui. I use AI-assisted
               workflows (Cursor + Claude) to iterate fast while keeping quality
               and consistency high.
             </p>
-            <p className="text-base leading-relaxed text-muted-foreground">
+            <p className="text-[17px] font-medium leading-relaxed text-muted-foreground">
               What I bring to a team: strong design thinking, solid frontend
-              execution, and the ability to own a feature end‑to‑end—from concept
+              execution, and the ability to own a feature end‑to‑end, from concept
               and prototypes to shipped code.
             </p>
-            <Button
-              variant="glow"
-              size="pill"
-              className="text-primary-foreground hover:opacity-95"
-              asChild
-            >
+            <Button variant="glow" size="pill" className="mt-2" asChild>
               <a href={SITE_MAILTO}>
                 <span className="inline-flex items-center gap-2">
                   <span>Get in touch</span>
-                  <ArrowRight
-                    className="size-5"
-                    strokeWidth={2.5}
-                    aria-hidden
-                  />
+                  <ArrowRight className="size-5" strokeWidth={2.5} aria-hidden />
                 </span>
               </a>
             </Button>
           </div>
-          <div className="flex aspect-square items-center justify-center rounded-lg bg-card">
-            <p className="text-sm text-muted-foreground">Photo</p>
-          </div>
+          <div
+            className={cn(
+              "relative flex aspect-square items-center justify-center overflow-hidden rounded-lg bg-card",
+              "bg-[url('/images/about-me.jpg')] bg-cover bg-center",
+            )}
+            aria-label="About me photo"
+          />
         </div>
       </section>
 
