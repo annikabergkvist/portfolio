@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { ContactDialog, ContactDialogTrigger } from "@/components/contact-dialog";
 import { SocialGlyph } from "@/components/social-glyphs";
 import { SITE_NAV_ITEMS, SITE_SOCIAL_LINKS } from "@/lib/site-nav";
 import { cn } from "@/lib/utils";
@@ -76,7 +77,7 @@ export function MobileHeader() {
   }, [open]);
 
   return (
-    <>
+    <ContactDialog>
       <header
         data-mobile-header
         className={cn(
@@ -137,18 +138,37 @@ export function MobileHeader() {
                 <ul className="pointer-events-auto flex flex-col items-center gap-10 sm:gap-11">
                   {SITE_NAV_ITEMS.map(({ href, label }, i) => (
                     <li key={href}>
-                      <Link
-                        ref={i === 0 ? firstLinkRef : undefined}
-                        href={href}
-                        className={cn(
-                          "block text-center font-light text-foreground antialiased",
-                          "text-[clamp(1.75rem,6.5vw,2.375rem)] leading-none tracking-[-0.02em]",
-                          "transition-colors hover:text-muted-foreground",
-                        )}
-                        onClick={() => setOpen(false)}
-                      >
-                        {label}
-                      </Link>
+                      {label === "Contact" ? (
+                        <ContactDialogTrigger>
+                          <button
+                            type="button"
+                            className={cn(
+                              "block text-center font-light text-foreground antialiased",
+                              "text-[clamp(1.75rem,6.5vw,2.375rem)] leading-none tracking-[-0.02em]",
+                              "transition-colors hover:text-muted-foreground",
+                            )}
+                            onClick={() => {
+                              // Let the dialog open first; then close the menu.
+                              requestAnimationFrame(() => setOpen(false));
+                            }}
+                          >
+                            {label}
+                          </button>
+                        </ContactDialogTrigger>
+                      ) : (
+                        <Link
+                          ref={i === 0 ? firstLinkRef : undefined}
+                          href={href}
+                          className={cn(
+                            "block text-center font-light text-foreground antialiased",
+                            "text-[clamp(1.75rem,6.5vw,2.375rem)] leading-none tracking-[-0.02em]",
+                            "transition-colors hover:text-muted-foreground",
+                          )}
+                          onClick={() => setOpen(false)}
+                        >
+                          {label}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -176,6 +196,6 @@ export function MobileHeader() {
           </nav>
         </>
       )}
-    </>
+    </ContactDialog>
   );
 }

@@ -4,13 +4,13 @@ import { ScrollChevron } from "@/components/scroll-chevron";
 import { ProjectRow, type Project } from "@/components/project-row";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ContactDialog, ContactDialogTrigger } from "@/components/contact-dialog";
 import {
   HERO_MAIN_BLOCK_LAYOUT_CLASS,
   HERO_SECTION_MIN_HEIGHT_CLASS,
   HERO_SECTION_TOP_CLASS,
 } from "@/lib/hero-layout";
 import { MAIN_CONTENT_CLASS } from "@/lib/main-content";
-import { SITE_MAILTO } from "@/lib/site-nav";
 import { cn } from "@/lib/utils";
 
 const projects: Project[] = [
@@ -150,14 +150,16 @@ export default function Home() {
               execution, and the ability to own a feature end‑to‑end, from concept
               and prototypes to shipped code.
             </p>
-            <Button variant="glow" size="pill" className="mt-2" asChild>
-              <a href={SITE_MAILTO}>
-                <span className="inline-flex items-center gap-2">
-                  <span>Get in touch</span>
-                  <ArrowRight className="size-5" strokeWidth={2.5} aria-hidden />
-                </span>
-              </a>
-            </Button>
+            <ContactDialog>
+              <ContactDialogTrigger asChild>
+                <Button variant="glow" size="pill" className="mt-4">
+                  <span className="inline-flex items-center gap-2">
+                    <span>Get in touch</span>
+                    <ArrowRight className="size-5" strokeWidth={2.5} aria-hidden />
+                  </span>
+                </Button>
+              </ContactDialogTrigger>
+            </ContactDialog>
           </div>
           <div
             className={cn(
@@ -169,25 +171,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Contact */}
-      <section
-        id="contact"
-        className="flex min-h-[40vh] flex-col lg:min-h-[50vh]"
-      >
-        <div
-          className={cn(
-            MAIN_CONTENT_CLASS,
-            "flex flex-1 flex-col items-center justify-center gap-4 py-16 lg:py-24",
-          )}
-        >
-          <h2 className="text-2xl font-black text-foreground sm:text-3xl">
-            Contact
-          </h2>
-          <p className="text-sm uppercase tracking-widest text-muted-foreground">
-            Coming soon
-          </p>
-        </div>
-      </section>
     </main>
   );
 }
