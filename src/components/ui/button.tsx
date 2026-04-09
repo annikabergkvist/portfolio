@@ -1,6 +1,6 @@
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
-import { Slot } from "radix-ui"
+import { Slot } from "@radix-ui/react-slot"
 
 import { cn } from "@/lib/utils"
 
@@ -21,6 +21,7 @@ const buttonVariants = cva(
           "hover:text-foreground",
           "hover:[text-shadow:0_0_14px_color-mix(in_oklab,var(--ring)_35%,transparent)]",
           "hover:-translate-y-px",
+          "hover:opacity-95",
           // navy glow behind
           "before:pointer-events-none before:absolute before:inset-[-18px] before:rounded-[calc(var(--radius-lg)+18px)]",
           "before:-z-10",
@@ -64,7 +65,7 @@ const buttonVariants = cva(
         "icon-lg": "size-9",
         /** Portfolio CTAs: pill shape, comfortable padding */
         pill:
-          "h-auto min-h-10 w-fit gap-2 rounded-md px-6 py-3 text-sm font-medium",
+          "h-auto min-h-11 w-fit gap-2 rounded-md px-5 py-3 text-[16px] font-semibold",
       },
     },
     defaultVariants: {
@@ -84,7 +85,7 @@ function Button({
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean
   }) {
-  const Comp = asChild ? Slot.Root : "button"
+  const Comp = asChild ? Slot : "button"
 
   return (
     <Comp

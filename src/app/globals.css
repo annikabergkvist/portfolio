@@ -57,38 +57,38 @@
   }
 
   .dark {
-    --background: #0a0a0f;
-    --foreground: #f0f0f5;
-    --card: #111118;
-    --card-foreground: #f0f0f5;
-    --popover: #1a1a24;
-    --popover-foreground: #f0f0f5;
-    --primary: #1e3a6e;
-    --primary-foreground: #f0f0f5;
-    --secondary: #111118;
-    --secondary-foreground: #a0a0b0;
-    --muted: #111118;
-    --muted-foreground: #606070;
-    --accent: #1a1a24;
-    --accent-foreground: #a0a0b0;
+    --background: #0e0a0b;
+    --foreground: #f5ebe9;
+    --card: #1a1214;
+    --card-foreground: #f5ebe9;
+    --popover: #231820;
+    --popover-foreground: #f5ebe9;
+    --primary: #b76e79;
+    --primary-foreground: #0e0a0b;
+    --secondary: #1a1214;
+    --secondary-foreground: #c4a8a8;
+    --muted: #1a1214;
+    --muted-foreground: #8a6e6e;
+    --accent: #231820;
+    --accent-foreground: #c4a8a8;
     --destructive: #7f1d1d;
     --destructive-foreground: #f0f0f5;
-    --border: rgba(240, 240, 245, 0.08);
-    --input: rgba(240, 240, 245, 0.08);
-    --ring: #4a6fa8;
-    --chart-1: #4a6fa8;
-    --chart-2: #1e3a6e;
-    --chart-3: #606070;
-    --chart-4: #303040;
-    --chart-5: #1a1a24;
-    --sidebar: #111118;
-    --sidebar-foreground: #f0f0f5;
-    --sidebar-primary: #4a6fa8;
-    --sidebar-primary-foreground: #f0f0f5;
-    --sidebar-accent: #1a1a24;
-    --sidebar-accent-foreground: #a0a0b0;
-    --sidebar-border: rgba(240, 240, 245, 0.08);
-    --sidebar-ring: #4a6fa8;
+    --border: rgba(245, 235, 233, 0.08);
+    --input: rgba(245, 235, 233, 0.08);
+    --ring: #b76e79;
+    --chart-1: #b76e79;
+    --chart-2: #9d5a64;
+    --chart-3: #8a6e6e;
+    --chart-4: #5c4444;
+    --chart-5: #3d2a2a;
+    --sidebar: #1a1214;
+    --sidebar-foreground: #f5ebe9;
+    --sidebar-primary: #b76e79;
+    --sidebar-primary-foreground: #0e0a0b;
+    --sidebar-accent: #231820;
+    --sidebar-accent-foreground: #c4a8a8;
+    --sidebar-border: rgba(245, 235, 233, 0.08);
+    --sidebar-ring: #b76e79;
   }
 }
 
@@ -226,5 +226,12 @@
     background: var(--primary);
     opacity: 1;
     animation: typewriter-cursor-blink 1s steps(1, end) infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .typewriter-cursor {
+    animation: none;
+    opacity: 1;
   }
 }

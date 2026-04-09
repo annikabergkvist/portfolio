@@ -61,7 +61,7 @@ export function ProjectRow({
         <Button
           variant="glow"
           size="pill"
-          className="rounded-md px-[20px] py-3 text-[16px] font-semibold text-primary-foreground hover:opacity-95"
+          className="mt-2"
           asChild
         >
           <a href={projectMailto}>

@@ -133,7 +133,7 @@ export function TypewriterRole({
       </span>
       <span className="min-w-0 text-foreground">
         {displayText}
-        {!reduced && <span className="typewriter-cursor" aria-hidden />}
+        <span className="typewriter-cursor" aria-hidden />
       </span>
     </span>
   );
