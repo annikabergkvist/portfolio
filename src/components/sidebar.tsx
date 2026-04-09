@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
+import { ContactDialog, ContactDialogTrigger } from "@/components/contact-dialog";
 import { SocialGlyph } from "@/components/social-glyphs";
 import { SIDEBAR_NAV_TOP_CLASS } from "@/lib/hero-layout";
 import { SITE_NAV_ITEMS, SITE_SOCIAL_LINKS } from "@/lib/site-nav";
@@ -43,32 +46,50 @@ export function Sidebar() {
       aria-label="Site"
     >
       <div className="flex min-h-0 flex-1 flex-col bg-transparent">
-        <nav
-          className={cn(
-            "flex shrink-0 flex-col items-center justify-start gap-14",
-            SIDEBAR_NAV_TOP_CLASS,
-          )}
-          aria-label="Main navigation"
-        >
-          {SITE_NAV_ITEMS.map(({ href, label }) => (
-            <div
-              key={href}
-              className="flex min-h-6 items-center justify-center"
-            >
-              <Button
-                variant="ghost"
-                size="sm"
-                className={cn(
-                  navLinkClassName,
-                  "origin-center -rotate-90 whitespace-nowrap",
-                )}
-                asChild
+        <ContactDialog>
+          <nav
+            className={cn(
+              "flex shrink-0 flex-col items-center justify-start gap-14",
+              SIDEBAR_NAV_TOP_CLASS,
+            )}
+            aria-label="Main navigation"
+          >
+            {SITE_NAV_ITEMS.map(({ href, label }) => (
+              <div
+                key={href}
+                className="flex min-h-6 items-center justify-center"
               >
-                <Link href={href}>{label}</Link>
-              </Button>
-            </div>
-          ))}
-        </nav>
+                {label === "Contact" ? (
+                  <ContactDialogTrigger>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      className={cn(
+                        navLinkClassName,
+                        "origin-center -rotate-90 whitespace-nowrap",
+                      )}
+                    >
+                      {label}
+                    </Button>
+                  </ContactDialogTrigger>
+                ) : (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className={cn(
+                      navLinkClassName,
+                      "origin-center -rotate-90 whitespace-nowrap",
+                    )}
+                    asChild
+                  >
+                    <Link href={href}>{label}</Link>
+                  </Button>
+                )}
+              </div>
+            ))}
+          </nav>
+        </ContactDialog>
 
         <div
           className="min-h-24 min-w-0 flex-1 basis-0"
