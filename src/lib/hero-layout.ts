@@ -18,5 +18,8 @@ export const HERO_MAIN_BLOCK_LAYOUT_CLASS =
 export const HERO_SECTION_MIN_HEIGHT_CLASS =
   "min-h-[calc(100svh-4rem)] xl:min-h-[140dvh]";
 
-/** Fixed sidebar nav (xl+). */
-export const SIDEBAR_NAV_TOP_CLASS = "pt-44";
+/** Home logo above rotated nav (xl+). */
+export const SIDEBAR_LOGO_TOP_CLASS = "pt-24 mb-8";
+
+/** Fixed sidebar nav (xl+). Space between logo block and first link. */
+export const SIDEBAR_NAV_TOP_CLASS = "pt-8";

@@ -6,6 +6,7 @@ import { Menu, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { ContactDialog, ContactDialogTrigger } from "@/components/contact-dialog";
+import { HomeLogoMark } from "@/components/home-logo-mark";
 import { SocialGlyph } from "@/components/social-glyphs";
 import { SITE_NAV_ITEMS, SITE_SOCIAL_LINKS } from "@/lib/site-nav";
 import { cn } from "@/lib/utils";
@@ -89,10 +90,10 @@ export function MobileHeader() {
       >
         <Link
           href="/"
-          className="text-sm font-medium tracking-wide text-sidebar-accent-foreground hover:text-foreground"
+          className="flex min-h-10 min-w-10 items-center justify-center touch-manipulation rounded-md transition-opacity hover:opacity-80"
           aria-label="Home"
         >
-          Home
+          <HomeLogoMark className="size-8" />
         </Link>
         <Button
           type="button"

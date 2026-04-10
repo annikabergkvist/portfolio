@@ -86,7 +86,7 @@
     --sidebar-primary: #b76e79;
     --sidebar-primary-foreground: #0e0a0b;
     --sidebar-accent: #231820;
-    --sidebar-accent-foreground: #c4a8a8;
+    --sidebar-accent-foreground: var(--muted-foreground);
     --sidebar-border: rgba(245, 235, 233, 0.08);
     --sidebar-ring: #b76e79;
   }
