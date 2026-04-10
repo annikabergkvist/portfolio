@@ -89,10 +89,10 @@ export function MobileHeader() {
       >
         <Link
           href="/"
-          className="flex h-10 w-10 items-center justify-center rounded-md border border-border text-sm font-bold tracking-tight text-foreground"
+          className="text-sm font-medium tracking-wide text-sidebar-accent-foreground hover:text-foreground"
           aria-label="Home"
         >
-          AB
+          Home
         </Link>
         <Button
           type="button"
@@ -136,9 +136,11 @@ export function MobileHeader() {
               */}
               <div className="flex min-h-0 flex-1 flex-col items-center justify-center px-6 pb-[min(11dvh,4.25rem)] pt-2 sm:px-8">
                 <ul className="pointer-events-auto flex flex-col items-center gap-10 sm:gap-11">
-                  {SITE_NAV_ITEMS.map(({ href, label }, i) => (
-                    <li key={href}>
-                      {label === "Contact" ? (
+                  {SITE_NAV_ITEMS.map((item, i) => (
+                    <li
+                      key={item.type === "contact" ? "contact" : item.href}
+                    >
+                      {item.type === "contact" ? (
                         <ContactDialogTrigger>
                           <button
                             type="button"
@@ -152,13 +154,13 @@ export function MobileHeader() {
                               requestAnimationFrame(() => setOpen(false));
                             }}
                           >
-                            {label}
+                            {item.label}
                           </button>
                         </ContactDialogTrigger>
                       ) : (
                         <Link
                           ref={i === 0 ? firstLinkRef : undefined}
-                          href={href}
+                          href={item.href}
                           className={cn(
                             "block text-center font-light text-foreground antialiased",
                             "text-[clamp(1.75rem,6.5vw,2.375rem)] leading-none tracking-[-0.02em]",
@@ -166,7 +168,7 @@ export function MobileHeader() {
                           )}
                           onClick={() => setOpen(false)}
                         >
-                          {label}
+                          {item.label}
                         </Link>
                       )}
                     </li>
