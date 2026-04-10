@@ -45,7 +45,7 @@ export function Sidebar() {
       )}
       aria-label="Site"
     >
-      <div className="flex min-h-0 flex-1 flex-col bg-transparent">
+      <div className="relative z-10 flex min-h-0 flex-1 flex-col bg-transparent">
         <ContactDialog>
           <nav
             className={cn(
@@ -54,12 +54,12 @@ export function Sidebar() {
             )}
             aria-label="Main navigation"
           >
-            {SITE_NAV_ITEMS.map(({ href, label }) => (
+            {SITE_NAV_ITEMS.map((item) => (
               <div
-                key={href}
+                key={item.type === "contact" ? "contact" : item.href}
                 className="flex min-h-6 items-center justify-center"
               >
-                {label === "Contact" ? (
+                {item.type === "contact" ? (
                   <ContactDialogTrigger>
                     <Button
                       type="button"
@@ -70,7 +70,7 @@ export function Sidebar() {
                         "origin-center -rotate-90 whitespace-nowrap",
                       )}
                     >
-                      {label}
+                      {item.label}
                     </Button>
                   </ContactDialogTrigger>
                 ) : (
@@ -83,7 +83,7 @@ export function Sidebar() {
                     )}
                     asChild
                   >
-                    <Link href={href}>{label}</Link>
+                    <Link href={item.href}>{item.label}</Link>
                   </Button>
                 )}
               </div>

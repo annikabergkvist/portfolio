@@ -1,7 +1,8 @@
 import { TypewriterRole } from "@/components/typewriter-role";
 import { HeroBackgroundVideo } from "@/components/hero-background-video";
 import { ScrollChevron } from "@/components/scroll-chevron";
-import { ProjectRow, type Project } from "@/components/project-row";
+import { ProjectRow } from "@/components/project-row";
+import { projects } from "@/lib/projects";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ContactDialog, ContactDialogTrigger } from "@/components/contact-dialog";
@@ -12,49 +13,6 @@ import {
 } from "@/lib/hero-layout";
 import { MAIN_CONTENT_CLASS } from "@/lib/main-content";
 import { cn } from "@/lib/utils";
-
-const projects: Project[] = [
-  {
-    index: "01",
-    title: "Fintech Dashboard UI",
-    description:
-      "A Wise-inspired dashboard redesigned and built from scratch. The focus: translating a complex fintech UI into a clean, scalable component architecture—supported by a custom design system, light/dark mode, and clear data visualization.",
-    role: "Role: Design Engineer — UX/UI design, design system, component architecture, frontend development",
-    mockupSrc: "/images/mockup-fintech.png",
-    floatDurationMs: 6800,
-    floatDelayMs: 80,
-  },
-  {
-    index: "02",
-    title: "Leader Linné Småland",
-    description:
-      "A regional NGO’s site wasn’t communicating their work and impact. I led a full redesign—from UX research and Figma prototypes to a complete frontend build—resulting in a clearer story and a more usable structure.",
-    role: "Role: Design Engineer — UX research, Figma prototyping, frontend development",
-    mockupSrc: "/images/mockup-leader2.png",
-    floatDurationMs: 7600,
-    floatDelayMs: 260,
-  },
-  {
-    index: "03",
-    title: "Wexiödisk",
-    description:
-      "Users struggled to understand the savings potential of industrial dishwashers. I designed and tested an intuitive calculator experience that made complex inputs and outcomes easy to grasp and act on.",
-    role: "Role: UI/UX Designer — interaction design, prototyping, usability testing",
-    mockupSrc: "/images/mockup-wexiodisk.png",
-    floatDurationMs: 7200,
-    floatDelayMs: 420,
-  },
-  {
-    index: "04",
-    title: "VDFF Website Redesign",
-    description:
-      "Translated high-fidelity designs into a responsive, performant website for a Swedish football club—ensuring a consistent, pixel-precise experience across breakpoints and devices.",
-    role: "Role: Frontend Developer — responsive implementation, performance, accessibility",
-    mockupSrc: "/images/mockup-vdff2.png",
-    floatDurationMs: 8000,
-    floatDelayMs: 140,
-  },
-];
 
 export default function Home() {
   return (

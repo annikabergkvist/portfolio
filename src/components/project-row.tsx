@@ -1,29 +1,21 @@
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ProjectMockup } from "@/components/project-mockup";
 import { ArrowRight } from "lucide-react";
+import type { Project } from "@/lib/projects";
 import { MAIN_CONTENT_CLASS } from "@/lib/main-content";
-import { SITE_MAILTO } from "@/lib/site-nav";
 import { cn } from "@/lib/utils";
-
-export type Project = {
-  index: string;
-  title: string;
-  description: string;
-  role: string;
-  mockupSrc: string;
-  floatDurationMs?: number;
-  floatDelayMs?: number;
-};
 
 const gridClass =
   "grid grid-cols-1 items-start gap-10 pb-16 pt-0 sm:pb-20 sm:pt-0 lg:min-h-screen lg:grid-cols-[minmax(0,520px)_1fr] lg:gap-16 lg:pb-24 lg:pt-0";
 
-export type ProjectRowProps = Project & {
+type ProjectRowProps = Project & {
   /** First row sits tight to the hero */
   isFirst?: boolean;
 };
 
 export function ProjectRow({
+  slug,
   index,
   title,
   description,
@@ -33,8 +25,6 @@ export function ProjectRow({
   floatDelayMs,
   isFirst,
 }: ProjectRowProps) {
-  const projectMailto = `${SITE_MAILTO}?subject=${encodeURIComponent(`Project inquiry: ${title}`)}`;
-
   return (
     <div
       className={cn(
@@ -49,7 +39,7 @@ export function ProjectRow({
         <span className="text-base font-semibold text-primary">
           {index}
         </span>
-        <h3 className="mb-0 max-w-[18ch] text-[50px] font-black leading-[1.05] text-foreground">
+        <h3 className="mb-0 max-w-full text-balance text-[clamp(2rem,6vw+1rem,50px)] font-black leading-[1.05] text-foreground">
           {title}
         </h3>
         <p className="mb-4 text-[18px] font-medium leading-[1.5] text-secondary-foreground">
@@ -64,7 +54,7 @@ export function ProjectRow({
           className="mt-2"
           asChild
         >
-          <a href={projectMailto}>
+          <Link href={`/work/${slug}`}>
             <span className="inline-flex items-center gap-2">
               <span>View project</span>
               <ArrowRight
@@ -73,7 +63,7 @@ export function ProjectRow({
                 aria-hidden
               />
             </span>
-          </a>
+          </Link>
         </Button>
       </div>
       <ProjectMockup
