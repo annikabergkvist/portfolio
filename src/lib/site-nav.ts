@@ -10,8 +10,8 @@ export type SiteNavItem =
   | { type: "contact"; label: "Contact" };
 
 export const SITE_NAV_ITEMS: SiteNavItem[] = [
-  { type: "anchor", href: "#work", label: "Work" },
-  { type: "anchor", href: "#about", label: "About" },
+  { type: "anchor", href: "/#work", label: "Work" },
+  { type: "anchor", href: "/#about", label: "About" },
   { type: "contact", label: "Contact" },
 ];
 

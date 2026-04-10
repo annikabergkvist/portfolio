@@ -1,11 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { ContactDialog, ContactDialogTrigger } from "@/components/contact-dialog";
+import { HomeLogoMark } from "@/components/home-logo-mark";
 import { SocialGlyph } from "@/components/social-glyphs";
-import { SIDEBAR_NAV_TOP_CLASS } from "@/lib/hero-layout";
+import { SIDEBAR_LOGO_TOP_CLASS, SIDEBAR_NAV_TOP_CLASS } from "@/lib/hero-layout";
 import { SITE_NAV_ITEMS, SITE_SOCIAL_LINKS } from "@/lib/site-nav";
 import { cn } from "@/lib/utils";
 
@@ -34,8 +36,15 @@ const socialButtonClassName = cn(
   "focus-visible:border-sidebar-ring focus-visible:ring-sidebar-ring/50",
 );
 
+function sectionIdFromNavHref(href: string): string | null {
+  const hash = href.split("#")[1];
+  return hash && hash.length > 0 ? hash : null;
+}
+
 /** Fixed left rail: hidden below `xl` (1280px); column fills the viewport from `xl`. */
 export function Sidebar() {
+  const pathname = usePathname();
+
   return (
     <aside
       className={cn(
@@ -46,6 +55,23 @@ export function Sidebar() {
       aria-label="Site"
     >
       <div className="relative z-10 flex min-h-0 flex-1 flex-col bg-transparent">
+        <div
+          className={cn(
+            "flex shrink-0 flex-col items-center",
+            SIDEBAR_LOGO_TOP_CLASS,
+          )}
+        >
+          <Link
+            href="/"
+            aria-label="Home"
+            className={cn(
+              "inline-flex rounded-md transition-opacity hover:opacity-90",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring/50",
+            )}
+          >
+            <HomeLogoMark className="size-9" />
+          </Link>
+        </div>
         <ContactDialog>
           <nav
             className={cn(
@@ -83,7 +109,27 @@ export function Sidebar() {
                     )}
                     asChild
                   >
-                    <Link href={item.href}>{item.label}</Link>
+                    <Link
+                      href={item.href}
+                      onClick={(e) => {
+                        if (pathname !== "/") return;
+                        const id = sectionIdFromNavHref(item.href);
+                        if (!id) return;
+                        const el = document.getElementById(id);
+                        if (!el) return;
+                        e.preventDefault();
+                        const smooth = !window.matchMedia(
+                          "(prefers-reduced-motion: reduce)",
+                        ).matches;
+                        el.scrollIntoView({
+                          behavior: smooth ? "smooth" : "auto",
+                          block: "start",
+                        });
+                        window.history.pushState(null, "", `#${id}`);
+                      }}
+                    >
+                      {item.label}
+                    </Link>
                   </Button>
                 )}
               </div>
