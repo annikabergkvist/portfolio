@@ -1,9 +1,15 @@
 /**
  * Shared navigation for the desktop sidebar and mobile hamburger menu.
  * Contact opens the dialog (no on-page section); see sidebar / mobile-header.
+ *
+ * Set `NEXT_PUBLIC_SITE_EMAIL` in Vercel (or `.env.local`) to override without code changes.
  */
-export const SITE_EMAIL_ADDRESS = "annikabergkvist@hotmail.com" as const;
-export const SITE_MAILTO = `mailto:${SITE_EMAIL_ADDRESS}` as const;
+const envEmail = process.env.NEXT_PUBLIC_SITE_EMAIL?.trim();
+export const SITE_EMAIL_ADDRESS =
+  envEmail && envEmail.length > 0
+    ? envEmail
+    : "hello@annikabergkvist.se";
+export const SITE_MAILTO = `mailto:${SITE_EMAIL_ADDRESS}`;
 
 export type SiteNavItem =
   | { type: "anchor"; href: string; label: string }

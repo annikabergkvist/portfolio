@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Sans } from "next/font/google";
+import { CookieConsent } from "@/components/cookie-consent";
 import { MobileHeader } from "@/components/mobile-header";
 import { Sidebar, SIDEBAR_WIDTH_CLASS } from "@/components/sidebar";
+import { getSiteUrl } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import "./globals.css";
 
@@ -12,10 +14,50 @@ const dmSans = DM_Sans({
   weight: ["300", "400", "500", "600", "700", "800", "900"],
 });
 
+const siteUrl = getSiteUrl();
+
 export const metadata: Metadata = {
-  title: "Annika Bergkvist — Design Engineer",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Annika Bergkvist — Design Engineer",
+    template: "%s — Annika Bergkvist",
+  },
   description:
     "Design Engineer based in Kristianstad, Sweden. Bridging product design and frontend development.",
+  keywords: [
+    "Design Engineer",
+    "UX",
+    "UI",
+    "frontend",
+    "Next.js",
+    "portfolio",
+    "Kristianstad",
+    "Sweden",
+  ],
+  authors: [{ name: "Annika Bergkvist" }],
+  creator: "Annika Bergkvist",
+  openGraph: {
+    type: "website",
+    locale: "en_GB",
+    url: siteUrl,
+    siteName: "Annika Bergkvist",
+    title: "Annika Bergkvist — Design Engineer",
+    description:
+      "Design Engineer based in Kristianstad, Sweden. Bridging product design and frontend development.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Annika Bergkvist — Design Engineer",
+    description:
+      "Design Engineer based in Kristianstad, Sweden. Bridging product design and frontend development.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  icons: {
+    icon: [{ url: "/images/ab-logo.svg", type: "image/svg+xml" }],
+  },
 };
 
 export const viewport: Viewport = {
@@ -57,6 +99,7 @@ export default function RootLayout({
           />
           <div className="min-w-0 flex-1">{children}</div>
         </div>
+        <CookieConsent />
       </body>
     </html>
   );

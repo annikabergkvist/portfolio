@@ -128,7 +128,7 @@ export function TypewriterRole({
       )}
       aria-label={`+ ${displayText}`}
     >
-      <span className="text-muted-foreground" aria-hidden>
+      <span className="text-primary" aria-hidden>
         +
       </span>
       <span className="min-w-0 text-foreground">

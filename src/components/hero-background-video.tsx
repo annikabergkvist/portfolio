@@ -39,7 +39,7 @@ export function HeroBackgroundVideo({ className }: { className?: string }) {
       muted
       loop
       playsInline
-      preload="auto"
+      preload="metadata"
       aria-hidden
     >
       <source src={HERO_VIDEO_SRC} type="video/mp4" />
