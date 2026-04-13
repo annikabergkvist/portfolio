@@ -1,3 +1,5 @@
+import Image from "next/image";
+import Link from "next/link";
 import { TypewriterRole } from "@/components/typewriter-role";
 import { HeroBackgroundVideo } from "@/components/hero-background-video";
 import { ScrollChevron } from "@/components/scroll-chevron";
@@ -12,6 +14,7 @@ import {
   HERO_SECTION_TOP_CLASS,
 } from "@/lib/hero-layout";
 import { MAIN_CONTENT_CLASS } from "@/lib/main-content";
+import { BlockImageSaveUI } from "@/components/block-image-save-ui";
 import { cn } from "@/lib/utils";
 
 export default function Home() {
@@ -19,7 +22,7 @@ export default function Home() {
     <main className="flex min-w-0 flex-col">
       <section
         className={cn(
-          "relative flex w-full flex-col items-start justify-start overflow-hidden bg-background pb-12 md:pb-16",
+          "relative flex w-full flex-col items-start justify-start overflow-hidden bg-background pb-4 md:pb-6",
           HERO_SECTION_TOP_CLASS,
           HERO_SECTION_MIN_HEIGHT_CLASS,
           "xl:ml-[-6rem] xl:w-[calc(100%+6rem)]",
@@ -43,7 +46,7 @@ export default function Home() {
         >
           <div className="@container min-w-0 w-full">
             <div className="flex w-full min-w-0 max-w-full flex-col items-start text-left max-md:gap-7 md:gap-16">
-              <p className="font-bold uppercase leading-none text-muted-foreground antialiased max-md:[font-size:clamp(0.8125rem,calc((100cqw-0.75rem)/20),1.125rem)] max-md:tracking-[0.34em] max-md:[word-spacing:0.52em] md:text-[21px] md:tracking-[0.32em] md:[word-spacing:0.6em] lg:text-[22px] lg:tracking-[0.34em] lg:[word-spacing:0.7em]">
+              <p className="font-bold uppercase leading-none text-primary antialiased max-md:[font-size:clamp(0.8125rem,calc((100cqw-0.75rem)/20),1.125rem)] max-md:tracking-[0.34em] max-md:[word-spacing:0.52em] md:text-[21px] md:tracking-[0.32em] md:[word-spacing:0.6em] lg:text-[22px] lg:tracking-[0.34em] lg:[word-spacing:0.7em]">
                 Annika Bergkvist
               </p>
               <div className="flex w-full min-w-0 flex-col items-stretch gap-5 md:items-start md:gap-6">
@@ -80,15 +83,49 @@ export default function Home() {
         ))}
       </section>
 
-      {/* About */}
-      <section id="about">
+      {/* About — full-bleed image like hero, fades into page background top/bottom */}
+      <section
+        id="about"
+        className={cn(
+          "relative flex w-full flex-col overflow-hidden",
+          "min-h-[min(100svh,56rem)] lg:min-h-[min(82svh,50rem)] xl:min-h-screen",
+          "xl:ml-[-6rem] xl:w-[calc(100%+6rem)]",
+        )}
+      >
+        <BlockImageSaveUI className="pointer-events-none absolute inset-0 z-0">
+          <Image
+            src="/images/about-me.jpg"
+            alt="Annika Bergkvist"
+            fill
+            sizes="(max-width: 1280px) 100vw, calc(100vw + 6rem)"
+            draggable={false}
+            className="object-cover object-center max-sm:object-[58%_center]"
+            priority={false}
+          />
+        </BlockImageSaveUI>
+        <div
+          className="pointer-events-none absolute inset-0 z-[1] bg-black/40"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute inset-0 z-[2] bg-gradient-to-r from-background from-[8%] via-background/95 via-[36%] to-transparent to-[88%] sm:via-[34%] sm:to-[86%] lg:via-[32%] lg:to-[84%]"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 z-[3] h-[min(32dvh,16rem)] bg-gradient-to-b from-background to-transparent sm:h-[min(28dvh,14rem)]"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-[3] h-[min(32dvh,16rem)] bg-gradient-to-t from-background to-transparent sm:h-[min(28dvh,14rem)]"
+          aria-hidden
+        />
         <div
           className={cn(
             MAIN_CONTENT_CLASS,
-            "grid grid-cols-1 items-center gap-8 py-16 sm:py-20 lg:min-h-screen lg:grid-cols-2 lg:gap-16 lg:py-24",
+            "relative z-10 flex flex-col gap-8 py-16 sm:py-20 lg:justify-center lg:py-24",
           )}
         >
-          <div className="flex flex-col gap-6">
+          <div className="flex max-w-lg flex-col gap-6">
             <h2 className="text-3xl font-black leading-tight text-foreground sm:text-4xl">
               About me
             </h2>
@@ -110,7 +147,7 @@ export default function Home() {
             </p>
             <ContactDialog>
               <ContactDialogTrigger asChild>
-                <Button variant="glow" size="pill" className="mt-4">
+                <Button variant="glow" size="pill" className="mt-10 sm:mt-14">
                   <span className="inline-flex items-center gap-2">
                     <span>Get in touch</span>
                     <ArrowRight className="size-5" strokeWidth={2.5} aria-hidden />
@@ -119,16 +156,18 @@ export default function Home() {
               </ContactDialogTrigger>
             </ContactDialog>
           </div>
-          <div
-            className={cn(
-              "relative flex aspect-square items-center justify-center overflow-hidden rounded-lg bg-card",
-              "bg-[url('/images/about-me.jpg')] bg-cover bg-center",
-            )}
-            aria-label="About me photo"
-          />
         </div>
       </section>
 
+      <footer className="flex flex-col items-center gap-2 py-14 text-center text-sm text-muted-foreground sm:py-16 lg:py-20">
+        <span>© 2026 Annika Bergkvist</span>
+        <Link
+          href="/privacy"
+          className="font-medium text-primary/90 underline decoration-primary/35 underline-offset-4 transition-colors hover:text-primary hover:decoration-primary"
+        >
+          Privacy
+        </Link>
+      </footer>
     </main>
   );
 }

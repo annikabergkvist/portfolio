@@ -1,17 +1,20 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
+import { ArrowLeft, ChevronRight, Github } from "lucide-react";
+import { BlockImageSaveUI } from "@/components/block-image-save-ui";
 import { ProjectMockup } from "@/components/project-mockup";
 import { MAIN_CONTENT_CLASS } from "@/lib/main-content";
 import { PROJECT_SLUGS, getProjectBySlug, type Project } from "@/lib/projects";
+import { getSiteUrl } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 /** Phrases that start a case-study paragraph when followed by body text. */
 const CASE_STUDY_SECTION_HEADINGS = new Set([
-  "The problem",
-  "What I did",
-  "The result",
+  "The problem.",
+  "What I did.",
+  "The result.",
 ]);
 
 type PageProps = {
@@ -50,9 +53,21 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const headline = project.subtitle
     ? `${project.title} — ${project.subtitle}`
     : project.title;
+  const base = getSiteUrl();
   return {
     title: `${headline} — Annika Bergkvist`,
     description: project.description,
+    openGraph: {
+      title: `${headline} — Annika Bergkvist`,
+      description: project.description,
+      url: `${base}/work/${slug}`,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${headline} — Annika Bergkvist`,
+      description: project.description,
+    },
   };
 }
 
@@ -61,14 +76,16 @@ function ProjectHeroIntro({ project }: { project: Project }) {
     <div className="flex flex-col gap-10 sm:gap-12">
       <div className="flex flex-col gap-3 sm:gap-4">
         <span className="text-sm font-semibold text-primary">{project.index}</span>
-        <h1 className="text-balance text-4xl font-black leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-[3.25rem] lg:leading-[1.02]">
-          {project.title}
-        </h1>
-        {project.subtitle ? (
-          <p className="text-balance text-2xl font-semibold leading-snug tracking-tight text-foreground sm:text-3xl lg:text-[2rem] lg:leading-tight">
-            {project.subtitle}
-          </p>
-        ) : null}
+        <div className="flex flex-col gap-1 sm:gap-1.5">
+          <h1 className="text-balance text-4xl font-black leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-[3.25rem] lg:leading-[1.02]">
+            {project.title}
+          </h1>
+          {project.subtitle ? (
+            <p className="text-balance text-2xl font-semibold leading-snug tracking-tight text-foreground sm:text-3xl lg:text-[2rem] lg:leading-tight">
+              {project.subtitle}
+            </p>
+          ) : null}
+        </div>
       </div>
 
       <div className="flex max-w-xl flex-col gap-5 sm:gap-6">
@@ -86,16 +103,20 @@ function ProjectHeroIntro({ project }: { project: Project }) {
 function CaseStudyBody({
   paragraphs,
   liveUrl,
+  githubUrl,
+  slug,
 }: {
   paragraphs: string[];
   liveUrl?: string;
+  githubUrl?: string;
+  slug: Project["slug"];
 }) {
   const blocks = buildCaseStudyBlocks(paragraphs);
   const bodyClass =
     "text-[17px] font-medium leading-relaxed text-secondary-foreground sm:text-[18px] sm:leading-[1.65]";
 
   return (
-    <div className="flex min-w-0 max-w-[65ch] flex-col gap-6 lg:max-w-[min(100%,52ch)]">
+    <div className="flex min-w-0 w-full max-w-[65ch] flex-col gap-6 lg:max-w-none">
       {blocks.map((block, i) => {
         if (block.kind === "lead") {
           return (
@@ -110,22 +131,61 @@ function CaseStudyBody({
           </p>
         );
       })}
-      {liveUrl ? (
-        <p className={bodyClass}>
-          <Link
-            href={liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-baseline gap-0.5 font-semibold text-primary underline decoration-primary/40 underline-offset-[0.2em] transition-colors hover:text-primary/90 hover:decoration-primary"
-          >
-            <ChevronRight
-              className="relative top-[0.12em] inline size-4 shrink-0 transition-transform group-hover:translate-x-0.5 sm:size-[1.125rem]"
-              strokeWidth={2.5}
-              aria-hidden
+      {(liveUrl && slug !== "vdff") || githubUrl ? (
+        <div
+          className={cn(
+            bodyClass,
+            "mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-baseline sm:gap-x-8 sm:gap-y-2",
+          )}
+        >
+          {liveUrl && slug !== "vdff" ? (
+            <Link
+              href={liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-baseline gap-0.5 font-semibold text-primary underline decoration-primary/40 underline-offset-[0.2em] transition-colors hover:text-primary/90 hover:decoration-primary"
+            >
+              <ChevronRight
+                className="relative top-[0.12em] inline size-4 shrink-0 transition-transform group-hover:translate-x-0.5 sm:size-[1.125rem]"
+                strokeWidth={2.5}
+                aria-hidden
+              />
+              <span>View website</span>
+            </Link>
+          ) : null}
+          {githubUrl ? (
+            <Link
+              href={githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-baseline gap-1.5 font-semibold text-primary underline decoration-primary/40 underline-offset-[0.2em] transition-colors hover:text-primary/90 hover:decoration-primary"
+            >
+              <Github
+                className="relative top-[0.08em] inline size-4 shrink-0 opacity-90 sm:size-[1.125rem]"
+                strokeWidth={2.25}
+                aria-hidden
+              />
+              <span>View on GitHub</span>
+            </Link>
+          ) : null}
+        </div>
+      ) : null}
+
+      {slug === "vdff" ? (
+        <figure className="mt-10 overflow-hidden rounded-xl border border-border/60 bg-card/20 shadow-[0_40px_90px_rgba(0,0,0,0.35)] sm:mt-12">
+          <BlockImageSaveUI>
+            <Image
+              src="/images/vdff-desktop.png"
+              alt="VDFF website — desktop view"
+              width={2400}
+              height={1600}
+              sizes="(min-width: 1024px) 58vw, 94vw"
+              className="h-auto w-full select-none"
+              draggable={false}
+              priority={false}
             />
-            <span>View website</span>
-          </Link>
-        </p>
+          </BlockImageSaveUI>
+        </figure>
       ) : null}
     </div>
   );
@@ -146,19 +206,37 @@ export default async function ProjectPage({ params }: PageProps) {
   return (
     <main className="flex min-w-0 flex-col pb-24 pt-12 sm:pb-28 sm:pt-14 lg:pt-16">
       <div className={cn(MAIN_CONTENT_CLASS, "flex flex-col gap-16 sm:gap-20 lg:gap-24")}>
+        <Link
+          href="/#work"
+          className="inline-flex w-fit items-center gap-2 text-sm font-medium text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
+        >
+          <ArrowLeft className="size-4 shrink-0" strokeWidth={2.5} aria-hidden />
+          Work
+        </Link>
         <ProjectHeroIntro project={project} />
 
-        <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-2 lg:items-start lg:gap-x-20 xl:gap-x-28 2xl:gap-x-36">
-          <CaseStudyBody paragraphs={paragraphs} liveUrl={project.liveUrl} />
+        <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] lg:items-start lg:gap-x-16 xl:gap-x-20 2xl:gap-x-24">
+          <CaseStudyBody
+            paragraphs={paragraphs}
+            liveUrl={project.liveUrl}
+            githubUrl={project.githubUrl}
+            slug={project.slug}
+          />
 
           <div className="min-w-0 overflow-visible lg:-mt-[min(28vh,13rem)] lg:sticky lg:top-28 lg:self-start xl:-mt-[min(32vh,15rem)] xl:top-24">
-            <ProjectMockup
-              src={project.mockupSrc}
-              alt={mockupAlt}
-              floatDurationMs={project.floatDurationMs}
-              floatDelayMs={project.floatDelayMs}
-              className="mx-0 w-full !max-w-none pb-0 sm:pb-0"
-            />
+            {/*
+              Narrower image track vs 50/50 grid — scale up from top-right so mockup
+              matches previous visual weight without shrinking the text column.
+            */}
+            <div className="overflow-visible lg:origin-top-right lg:translate-x-7 lg:scale-[1.22] xl:translate-x-10 xl:scale-[1.18] 2xl:translate-x-12 2xl:scale-[1.14]">
+              <ProjectMockup
+                src={project.mockupSrc}
+                alt={mockupAlt}
+                floatDurationMs={project.floatDurationMs}
+                floatDelayMs={project.floatDelayMs}
+                className="mx-0 w-full !max-w-none pb-0 sm:pb-0"
+              />
+            </div>
           </div>
         </div>
 
@@ -168,7 +246,7 @@ export default async function ProjectPage({ params }: PageProps) {
             className="inline-flex items-center gap-2 text-base font-medium text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
           >
             <ArrowLeft className="size-4 shrink-0" strokeWidth={2.5} aria-hidden />
-            Back to work
+            Work
           </Link>
         </p>
       </div>

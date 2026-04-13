@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
 
+import { BlockImageSaveUI } from "@/components/block-image-save-ui";
 import { cn } from "@/lib/utils";
 
 export type ProjectMockupProps = {
@@ -83,7 +84,7 @@ export function ProjectMockup({
         className="pointer-events-none absolute inset-0 -z-10 rounded-[34px] bg-black/25 blur-2xl"
       />
 
-      <div className="relative w-full">
+      <BlockImageSaveUI className="relative w-full">
         <Image
           src={src}
           alt={alt}
@@ -92,6 +93,7 @@ export function ProjectMockup({
           sizes={sizes}
           unoptimized
           priority={false}
+          draggable={false}
           className={cn(
             // oversized/impactful
             "mx-auto h-auto w-[102%] max-w-none select-none",
@@ -99,7 +101,7 @@ export function ProjectMockup({
             "drop-shadow-[0_40px_90px_rgba(0,0,0,0.6)]",
           )}
         />
-      </div>
+      </BlockImageSaveUI>
     </motion.div>
   );
 }
