@@ -180,20 +180,37 @@ export function MobileHeader() {
                 className="pointer-events-auto mt-auto flex shrink-0 justify-center gap-3 px-6 pb-[max(1.75rem,calc(env(safe-area-inset-bottom,0px)+1.5rem))] pt-2 text-sidebar-accent-foreground sm:gap-3 sm:px-8 sm:pb-10"
                 aria-label="Social links"
               >
-                {SITE_SOCIAL_LINKS.map(({ href, label }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    className="rounded-md p-2 transition-colors hover:bg-sidebar-accent hover:text-muted-foreground"
-                    aria-label={label}
-                    {...(href.startsWith("http")
-                      ? { target: "_blank", rel: "noopener noreferrer" }
-                      : {})}
-                    onClick={() => setOpen(false)}
-                  >
-                    <SocialGlyph label={label} />
-                  </a>
-                ))}
+                {SITE_SOCIAL_LINKS.map(({ href, label }) => {
+                  if (label === "Email") {
+                    return (
+                      <ContactDialogTrigger key={label}>
+                        <button
+                          type="button"
+                          className="rounded-md p-2 transition-colors hover:bg-sidebar-accent hover:text-muted-foreground"
+                          aria-label="Contact"
+                          onClick={() => setOpen(false)}
+                        >
+                          <SocialGlyph label={label} />
+                        </button>
+                      </ContactDialogTrigger>
+                    );
+                  }
+
+                  return (
+                    <a
+                      key={label}
+                      href={href}
+                      className="rounded-md p-2 transition-colors hover:bg-sidebar-accent hover:text-muted-foreground"
+                      aria-label={label}
+                      {...(href.startsWith("http")
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
+                      onClick={() => setOpen(false)}
+                    >
+                      <SocialGlyph label={label} />
+                    </a>
+                  );
+                })}
               </div>
             </div>
           </nav>

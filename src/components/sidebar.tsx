@@ -135,7 +135,6 @@ export function Sidebar() {
               </div>
             ))}
           </nav>
-        </ContactDialog>
 
         <div
           className="min-h-24 min-w-0 flex-1 basis-0"
@@ -146,26 +145,45 @@ export function Sidebar() {
           className="flex shrink-0 flex-col items-center gap-3 pb-24"
           aria-label="Social links"
         >
-          {SITE_SOCIAL_LINKS.map(({ href, label }) => (
-            <Button
-              key={label}
-              variant="ghost"
-              size="icon-sm"
-              className={socialButtonClassName}
-              asChild
-            >
-              <a
-                href={href}
-                aria-label={label}
-                {...(href.startsWith("http")
-                  ? { target: "_blank", rel: "noopener noreferrer" }
-                  : {})}
+          {SITE_SOCIAL_LINKS.map(({ href, label }) => {
+            if (label === "Email") {
+              return (
+                <ContactDialogTrigger key={label}>
+                  <Button
+                    variant="ghost"
+                    size="icon-sm"
+                    className={socialButtonClassName}
+                    aria-label="Contact"
+                    type="button"
+                  >
+                    <SocialGlyph label={label} />
+                  </Button>
+                </ContactDialogTrigger>
+              );
+            }
+
+            return (
+              <Button
+                key={label}
+                variant="ghost"
+                size="icon-sm"
+                className={socialButtonClassName}
+                asChild
               >
-                <SocialGlyph label={label} />
-              </a>
-            </Button>
-          ))}
+                <a
+                  href={href}
+                  aria-label={label}
+                  {...(href.startsWith("http")
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
+                >
+                  <SocialGlyph label={label} />
+                </a>
+              </Button>
+            );
+          })}
         </div>
+        </ContactDialog>
       </div>
     </aside>
   );

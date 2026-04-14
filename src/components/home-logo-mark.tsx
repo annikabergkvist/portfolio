@@ -19,7 +19,7 @@ const MASK_STYLE: CSSProperties = {
 export function HomeLogoMark({ className }: { className?: string }) {
   return (
     <span
-      className={cn("inline-block shrink-0 bg-sidebar-accent-foreground", className)}
+      className={cn("inline-block shrink-0 bg-primary", className)}
       style={MASK_STYLE}
       aria-hidden
     />
