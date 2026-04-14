@@ -123,12 +123,12 @@ export function TypewriterRole({
   return (
     <span
       className={cn(
-        "inline-flex min-w-0 max-w-full items-baseline gap-4 whitespace-nowrap",
+        "inline-flex min-w-0 max-w-full items-baseline gap-4 whitespace-nowrap max-sm:gap-2.5",
         className,
       )}
       aria-label={`+ ${displayText}`}
     >
-      <span className="text-primary" aria-hidden>
+      <span className="shrink-0 text-primary" aria-hidden>
         +
       </span>
       <span className="min-w-0 text-foreground">

@@ -22,7 +22,7 @@ export default function Home() {
     <main className="flex min-w-0 flex-col">
       <section
         className={cn(
-          "relative flex w-full flex-col items-start justify-start overflow-hidden bg-background pb-4 md:pb-6",
+          "relative flex w-full flex-col items-start justify-start overflow-hidden bg-background pb-2 md:pb-4",
           HERO_SECTION_TOP_CLASS,
           HERO_SECTION_MIN_HEIGHT_CLASS,
           "xl:ml-[-6rem] xl:w-[calc(100%+6rem)]",
@@ -40,23 +40,23 @@ export default function Home() {
         <div
           className={cn(
             MAIN_CONTENT_CLASS,
-            "relative z-10 w-full md:pl-1 xl:pl-6 2xl:pl-10",
+            "relative z-10 w-full max-sm:px-7 xl:pl-6 2xl:pl-10",
             HERO_MAIN_BLOCK_LAYOUT_CLASS,
           )}
         >
           <div className="@container min-w-0 w-full">
-            <div className="flex w-full min-w-0 max-w-full flex-col items-start text-left max-md:gap-7 md:gap-16">
+            <div className="flex w-full min-w-0 max-w-full flex-col items-start text-left max-md:gap-6 md:gap-16">
               <p className="font-bold uppercase leading-none text-primary antialiased max-md:[font-size:clamp(0.8125rem,calc((100cqw-0.75rem)/20),1.125rem)] max-md:tracking-[0.34em] max-md:[word-spacing:0.52em] md:text-[21px] md:tracking-[0.32em] md:[word-spacing:0.6em] lg:text-[22px] lg:tracking-[0.34em] lg:[word-spacing:0.7em]">
                 Annika Bergkvist
               </p>
-              <div className="flex w-full min-w-0 flex-col items-stretch gap-5 md:items-start md:gap-6">
-                <h1 className="max-w-full min-w-0 font-semibold leading-[0.92] tracking-[-0.02em] text-foreground max-md:text-balance max-md:[font-size:clamp(1.55rem,calc((100cqw-0.75rem)/8.25),3.15rem)] sm:max-md:whitespace-nowrap md:w-max md:max-w-full md:text-balance md:font-bold md:leading-[0.88] md:[font-size:clamp(2.85rem,11.5vw+1.6rem,7.5rem)]">
+              <div className="flex w-full min-w-0 flex-col items-stretch gap-3 md:items-start md:gap-6">
+                <h1 className="max-w-full min-w-0 font-semibold leading-[0.92] tracking-[-0.02em] text-foreground max-md:text-balance max-md:[font-size:clamp(1.9rem,calc((100cqw-0.75rem)/7.75),3.75rem)] sm:max-md:whitespace-nowrap md:w-max md:max-w-full md:text-balance md:font-bold md:leading-[0.88] md:[font-size:clamp(2.85rem,11.5vw+1.6rem,7.5rem)]">
                   Design Engineer
                 </h1>
                 <div
                   className={cn(
-                    "w-full min-w-0 max-w-full pt-1 leading-[1.06] md:w-max",
-                    "[font-size:clamp(1.55rem,min(5.8vw+0.45rem,3.35rem),3.35rem)] md:[font-size:clamp(1.45rem,5.4vw+0.55rem,5rem)]",
+                    "w-full min-w-0 max-w-full pt-0.5 leading-[1.06] md:w-max",
+                    "max-[360px]:[font-size:clamp(1.05rem,calc((100cqw-0.75rem)/11.75),1.65rem)] max-sm:[font-size:clamp(1.15rem,calc((100cqw-0.75rem)/10.5),2.05rem)] sm:[font-size:clamp(1.55rem,min(5.8vw+0.45rem,3.35rem),3.35rem)] md:[font-size:clamp(1.45rem,5.4vw+0.55rem,5rem)]",
                   )}
                 >
                   <TypewriterRole

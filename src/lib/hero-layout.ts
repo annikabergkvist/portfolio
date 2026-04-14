@@ -16,7 +16,7 @@ export const HERO_MAIN_BLOCK_LAYOUT_CLASS =
  * the hero (and chevron) fits the first viewport. `xl+`: no header offset, tall hero.
  */
 export const HERO_SECTION_MIN_HEIGHT_CLASS =
-  "min-h-[calc(100svh-4rem)] xl:min-h-[140dvh]";
+  "min-h-[calc(100svh-4rem)] xl:min-h-[115dvh]";
 
 /** Home logo above rotated nav (xl+). */
 export const SIDEBAR_LOGO_TOP_CLASS = "pt-24 mb-8";
