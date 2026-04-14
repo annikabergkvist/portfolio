@@ -8,7 +8,7 @@ const envEmail = process.env.NEXT_PUBLIC_SITE_EMAIL?.trim();
 export const SITE_EMAIL_ADDRESS =
   envEmail && envEmail.length > 0
     ? envEmail
-    : "hello@annikabergkvist.se";
+    : "annikabergkvist@hotmail.com";
 export const SITE_MAILTO = `mailto:${SITE_EMAIL_ADDRESS}`;
 
 export type SiteNavItem =

@@ -25,13 +25,12 @@ Use this before pointing a custom domain or sharing widely.
 - [ ] Favicon uses `/images/ab-logo.svg`. For **Apple touch icon**, add e.g. `app/apple-icon.png` (180×180) or set `apple` in `layout.tsx` `metadata.icons` once the file exists.
 - [ ] Optional: `favicon.ico` in `app/` for older clients.
 
-## Contact form (ImprovMX SMTP)
+## Contact form (Resend)
 
-- [ ] **ImprovMX:** free tier forwards mail to your inbox; **sending** from the website uses [ImprovMX SMTP](https://improvmx.com/guides/generic-smtp-setup) (**Premium**). Create SMTP credentials in the dashboard (domain → ⚙ → SMTP Credentials), add [DKIM/DMARC](https://improvmx.com/guides/adding-dkim-dmarc-records-for-smtp-sending) in DNS.
-- [ ] In Vercel → Environment Variables, add: `SMTP_HOST=smtp.improvmx.com`, `SMTP_PORT` (587 or 465), `SMTP_SECURE` (`false` for 587, `true` for 465), `SMTP_USER` (e.g. `hello@yourdomain.se`), `SMTP_PASS`, `CONTACT_TO_EMAIL` (usually the same alias).
+- [ ] In Resend, verify your domain and ensure `hello@annikabergkvist.se` is allowed as a sender.
+- [ ] In Vercel → Environment Variables (Production), add: `RESEND_API_KEY`, `RESEND_FROM_EMAIL` (sender), and `CONTACT_TO_EMAIL` (recipient inbox).
 - [ ] Redeploy after saving env vars.
-- [ ] Test the live contact form; confirm delivery (and ImprovMX → Hotmail forwarding if configured).
-- [ ] If SMTP fails only on Vercel, try **465** + `SMTP_SECURE=true`, or use a transactional API (e.g. Resend) instead of raw SMTP from serverless.
+- [ ] Test the live contact form; confirm delivery (and any forwarding rules to Hotmail if configured).
 
 ## Legal & trust
 

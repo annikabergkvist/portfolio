@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
 export const runtime = "nodejs";
 
 const MAX_NAME = 120;
 const MAX_MESSAGE = 8000;
+const DEFAULT_FROM_EMAIL = "onboarding@resend.dev";
 
 function isValidEmail(email: string): boolean {
   if (email.length > 254) return false;
@@ -42,30 +43,18 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "invalid_message" }, { status: 400 });
   }
 
-  const host = process.env.SMTP_HOST?.trim();
-  const user = process.env.SMTP_USER?.trim();
-  const pass = process.env.SMTP_PASS?.trim();
-  const to = process.env.CONTACT_TO_EMAIL?.trim() || user;
+  const apiKey = process.env.RESEND_API_KEY?.trim();
+  const to = process.env.CONTACT_TO_EMAIL?.trim();
+  const from =
+    process.env.RESEND_FROM_EMAIL?.trim() || DEFAULT_FROM_EMAIL;
 
-  if (!host || !user || !pass || !to) {
-    console.error("contact: missing SMTP_HOST, SMTP_USER, SMTP_PASS, or CONTACT_TO_EMAIL");
+  if (!apiKey || !to) {
+    console.error("contact: missing RESEND_API_KEY or CONTACT_TO_EMAIL");
     return NextResponse.json({ error: "not_configured" }, { status: 503 });
   }
 
-  const port = Number(process.env.SMTP_PORT || "587");
-  const secure =
-    process.env.SMTP_SECURE === "true" || port === 465;
-
   try {
-    const transporter = nodemailer.createTransport({
-      host,
-      port,
-      secure,
-      auth: { user, pass },
-    });
-
-    const fromName =
-      process.env.SMTP_FROM_NAME?.trim() || "Portfolio contact";
+    const resend = new Resend(apiKey);
 
     const textLines = [
       name ? `Name: ${name}` : null,
@@ -74,8 +63,8 @@ export async function POST(request: Request) {
       message,
     ].filter((line): line is string => line !== null);
 
-    await transporter.sendMail({
-      from: `"${fromName}" <${user}>`,
+    const { error } = await resend.emails.send({
+      from,
       to,
       replyTo: email,
       subject: name
@@ -83,6 +72,10 @@ export async function POST(request: Request) {
         : `Portfolio: message from ${email}`,
       text: textLines.join("\n"),
     });
+    if (error) {
+      console.error("contact: send failed", error);
+      return NextResponse.json({ error: "send_failed" }, { status: 502 });
+    }
 
     return NextResponse.json({ ok: true });
   } catch (err) {
