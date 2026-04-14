@@ -1,24 +1,18 @@
 # Annika Bergkvist — Portfolio
 
-Personal portfolio site for a Design Engineer based in Sweden.
+Personal portfolio for a Design Engineer based in Sweden, built with Next.js, Tailwind CSS v4 and shadcn/ui.
 
-**Live:** `annikabergkvist.se`
-
-## About
-
-This site showcases selected work and provides a contact flow for inquiries.
+**Live:** [annikabergkvist.se](https://annikabergkvist.se)
 
 ## Tech Stack
 
-- Next.js
-- React
+- Next.js + TypeScript
 - Tailwind CSS v4
 - shadcn/ui
-- TypeScript
+- Resend (contact form)
+- Vercel (hosting)
 
-## Getting Started (local dev)
-
-Install dependencies and start the dev server:
+## Local Development
 
 ```bash
 npm install
@@ -32,18 +26,11 @@ Open `http://localhost:3000`.
 Create `.env.local` in the project root:
 
 ```bash
-RESEND_API_KEY=
-RESEND_FROM_EMAIL=
-CONTACT_TO_EMAIL=
+RESEND_API_KEY=        # Resend API key
+RESEND_FROM_EMAIL=     # e.g. hello@yourdomain.com
+CONTACT_TO_EMAIL=      # where contact form emails are delivered
 ```
 
 ## Deploy
 
-Build and run locally:
-
-```bash
-npm run build
-npm run start
-```
-
-Deploy to your hosting provider of choice and set the same environment variables in the hosting environment.
+Hosted on Vercel. Set the same environment variables under Project → Settings → Environment Variables.
