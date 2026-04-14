@@ -159,14 +159,16 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="flex flex-col items-center gap-2 py-14 text-center text-sm text-muted-foreground sm:py-16 lg:py-20">
-        <span>© 2026 Annika Bergkvist</span>
-        <Link
-          href="/privacy"
-          className="font-medium text-primary/90 underline decoration-primary/35 underline-offset-4 transition-colors hover:text-primary hover:decoration-primary"
-        >
-          Privacy
-        </Link>
+      <footer className="flex flex-col items-center py-14 text-center text-sm text-muted-foreground sm:py-16 lg:py-20">
+        <p>
+          <span>© 2026 Annika Bergkvist · </span>
+          <Link
+            href="/privacy"
+            className="font-medium underline decoration-muted-foreground/35 underline-offset-4 transition-colors hover:decoration-muted-foreground/60"
+          >
+            Privacy
+          </Link>
+        </p>
       </footer>
     </main>
   );
