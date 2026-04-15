@@ -5,7 +5,7 @@ import { NextRequest } from "next/server";
 
 export const runtime = "nodejs";
 
-const FILE_RELATIVE_PATH = path.join("public", "videos", "bg3.mp4");
+const FILE_RELATIVE_PATH = path.join("public", "videos", "bg3-1280.mp4");
 
 function parseRangeHeader(range: string, size: number) {
   // Expected: "bytes=start-end"
