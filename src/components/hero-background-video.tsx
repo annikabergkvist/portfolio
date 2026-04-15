@@ -73,7 +73,6 @@ export function HeroBackgroundVideo({ className }: { className?: string }) {
       key={HERO_VIDEO_SRC}
       ref={ref}
       className={className}
-      style={{ backgroundColor: "black" }}
       autoPlay={inView}
       muted
       loop
