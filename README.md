@@ -6,7 +6,7 @@ Personal portfolio for a Design Engineer based in Sweden, built with Next.js, Ta
 
 ## Tech Stack
 
-* Next.js 15 (App Router) + React 19
+* Next.js 16 (App Router) + React 19
 * TypeScript
 * Tailwind CSS v4
 * shadcn/ui
