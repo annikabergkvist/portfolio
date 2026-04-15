@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 /** Hero loop — file in `public/videos/`. */
-const HERO_VIDEO_SRC = "/videos/bg3.mp4";
+const HERO_VIDEO_SRC = "/api/hero-video";
 
 /** Slightly slower than real time; re-applied on `play` (some browsers reset on loop). */
 const PLAYBACK_RATE = 0.78;
