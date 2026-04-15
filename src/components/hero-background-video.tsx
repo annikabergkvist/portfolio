@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 
 /** Hero loop — file in `public/videos/`. */
 const HERO_VIDEO_SRC = "/api/hero-video";
-const HERO_VIDEO_POSTER = "/images/hero-poster.jpg";
 
 /** Slightly slower than real time; re-applied on `play` (some browsers reset on loop). */
 const PLAYBACK_RATE = 0.78;
@@ -52,6 +51,21 @@ export function HeroBackgroundVideo({ className }: { className?: string }) {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (!inView) return;
+    const video = ref.current;
+    if (!video) return;
+
+    // Some browsers won't start playback when `autoplay` is toggled after mount.
+    // Explicitly trigger playback when the hero enters the viewport.
+    const p = video.play();
+    if (p && typeof (p as Promise<void>).catch === "function") {
+      (p as Promise<void>).catch(() => {
+        // Autoplay may still be blocked in some contexts; poster remains visible.
+      });
+    }
+  }, [inView]);
+
   if (failed) return null;
 
   return (
@@ -59,6 +73,7 @@ export function HeroBackgroundVideo({ className }: { className?: string }) {
       key={HERO_VIDEO_SRC}
       ref={ref}
       className={className}
+      style={{ backgroundColor: "black" }}
       autoPlay={inView}
       muted
       loop
@@ -66,7 +81,6 @@ export function HeroBackgroundVideo({ className }: { className?: string }) {
       preload="none"
       aria-hidden
       onError={() => setFailed(true)}
-      poster={HERO_VIDEO_POSTER}
     >
       <source src={HERO_VIDEO_SRC} type="video/mp4" />
     </video>
