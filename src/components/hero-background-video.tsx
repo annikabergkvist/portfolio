@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /** Hero loop — file in `public/videos/`. */
 const HERO_VIDEO_SRC = "/videos/bg3.mp4";
@@ -10,6 +10,7 @@ const PLAYBACK_RATE = 0.78;
 
 export function HeroBackgroundVideo({ className }: { className?: string }) {
   const ref = useRef<HTMLVideoElement>(null);
+  const [failed, setFailed] = useState(false);
 
   useEffect(() => {
     const video = ref.current;
@@ -30,6 +31,8 @@ export function HeroBackgroundVideo({ className }: { className?: string }) {
     };
   }, []);
 
+  if (failed) return null;
+
   return (
     <video
       key={HERO_VIDEO_SRC}
@@ -41,6 +44,7 @@ export function HeroBackgroundVideo({ className }: { className?: string }) {
       playsInline
       preload="metadata"
       aria-hidden
+      onError={() => setFailed(true)}
     >
       <source src={HERO_VIDEO_SRC} type="video/mp4" />
     </video>
