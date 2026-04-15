@@ -6,11 +6,13 @@ Personal portfolio for a Design Engineer based in Sweden, built with Next.js, Ta
 
 ## Tech Stack
 
-- Next.js + TypeScript
-- Tailwind CSS v4
-- shadcn/ui
-- Resend (contact form)
-- Vercel (hosting)
+* Next.js 15 (App Router) + React 19
+* TypeScript
+* Tailwind CSS v4
+* shadcn/ui
+* Framer Motion
+* Resend (contact form)
+* Vercel (hosting)
 
 ## Local Development
 
